@@ -23,6 +23,7 @@ public class DragRaceActivity extends Activity {
         ((TextView)findViewById(R.id.cadence_display)).setText(getString(R.string.cadence) + " " + getString(R.string.cadence_units));
     }
     
+    //TODO: this call is causing the app to crash with error: did not call through to super.onDestroy() 
     @Override
     protected void onDestroy() {
     	updateGlobals();

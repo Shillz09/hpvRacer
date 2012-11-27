@@ -8,7 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.widget.ArrayAdapter;
-
+//TODO: note this loaded the list of races fine on home network. Why didn't races load at school?
+// Can the lack of races as soon on campus be duplicated?
+// Handle case of no network connection or slow network: show "none of these" before races load as well as after
 public class DragRaceSelectorActivity extends FragmentActivity {
 	public final static String RACETITLE = "edu.wvu.hpvracer.RACETITLE";
 	public final static String RACEID = "edu.wvu.hpvracer.RACEID";
