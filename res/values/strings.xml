@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HPV Racer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="button_settings">Settings</string>
+    <string name="button_dragRace">Drag Race</string>
+    <string name="button_enduranceRace">Endurance Race</string>
+    <string name="button_endRace">End Race</string>
+    <string name="title_activity_main">HPV Racer</string>
+    <string name="title_activity_drag_race">Drag Race</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_endurance_race">Endurance Race</string>
+    <string name="title_race_selector">Which Race?</string>
+    <string name="speed">--</string>
+    <string name="cadence">--</string>
+    <string name="time">--:--</string>
+    <string name="speed_units">mph</string>
+    <string name="cadence_units">rpm</string>
+    <string name="title_activity_rest">RestActivity</string>
+    <string name="title_activity_drag_race_selector">Drag Race Selector</string>
+
+</resources>
