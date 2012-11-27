@@ -23,16 +23,20 @@ public class Constants {
 	
 	// USED IN SQLITE DATABASE (LOCAL DB)
 	public static final int SQLDATABASE_VERSION = 1;
+	public static final String SQLDATABASENAME = "hpvData.db";
+	public static final String SQLRACEDATATABLE = "hpvSensorData";
+	public static final String SQLLAPTABLE = "hpvLaps";
 	public static final String SQLROWID = "_id";
-	public static final String SQLTABLENAME = "hpvSensorData";
 	public static final String SQLREADINGTIME = "readTime";
 	public static final String SQLKEY = "readingType";
 	public static final String SQLVALUE = "value";
-	public static final String SQLRACER = "RiderID";
-	public static final String SQLRACE = "RaceID";
-	public static final String SQLRIDERLAP = "RiderLapNumber";
-	public static final String SQLRACELAP = "RaceLapNumber";
+	public static final String SQLRACER = "riderID";
+	public static final String SQLRACE = "raceID";
+	public static final String SQLRIDERLAP = "riderLapNumber";
+	public static final String SQLRACELAP = "raceLapNumber";
 	public static final String SQLUPLOADSTATUS = "status";
+	public static final String SQLLAPNUMBER = "lapNumber";
+	public static final String SQLLAPSTARTTIME = "lapStartTime";
 	public static enum SQLKEYOPTIONS {
 		SPEED, CADENCE
 	}
