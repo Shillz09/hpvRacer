@@ -41,7 +41,7 @@
 
         <service android:name="edu.wvu.hpvracer.GCMIntentService" />
         <service android:name="net.neilgoodman.android.rest.RESTService" />
-
+        
         <activity
             android:name="edu.wvu.hpvracer.MainActivity"
             android:label="@string/title_activity_main" >
@@ -78,6 +78,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.wvu.hpvracer.MainActivity" />
 		</activity>
+		
+		<provider
+		    android:name=".contentprovider.MyTodoContentProvider"
+		    android:authorities="de.vogella.android.todos.contentprovider" >
+		</provider>
 
     </application>
 

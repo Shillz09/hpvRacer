@@ -17,28 +17,10 @@ public class Constants {
 	public static final String RIDERLAP = "RiderLapNumber";
 	public static final String RACELAP = "RaceLapNumber";
 	public static final String GCMREGID = "GoogleCloudMessagingDeviceRegistrationId";
+	public static final String GHOSTSPEED = "ghostSpeed";
+	public static final String GHOSTCADENCE = "ghostCadence";
 	
 	// USED IN GOOGLE CLOUD MESSAGING
 	public static final String SENDER_ID = "678175558305";
-	
-	// USED IN SQLITE DATABASE (LOCAL DB)
-	public static final int SQLDATABASE_VERSION = 1;
-	public static final String SQLDATABASENAME = "hpvData.db";
-	public static final String SQLRACEDATATABLE = "hpvSensorData";
-	public static final String SQLLAPTABLE = "hpvLaps";
-	public static final String SQLROWID = "_id";
-	public static final String SQLREADINGTIME = "readTime";
-	public static final String SQLKEY = "readingType";
-	public static final String SQLVALUE = "value";
-	public static final String SQLRACER = "riderID";
-	public static final String SQLRACE = "raceID";
-	public static final String SQLRIDERLAP = "riderLapNumber";
-	public static final String SQLRACELAP = "raceLapNumber";
-	public static final String SQLUPLOADSTATUS = "status";
-	public static final String SQLLAPNUMBER = "lapNumber";
-	public static final String SQLLAPSTARTTIME = "lapStartTime";
-	public static enum SQLKEYOPTIONS {
-		SPEED, CADENCE
-	}
 
 }

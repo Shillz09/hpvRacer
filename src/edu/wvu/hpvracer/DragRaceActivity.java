@@ -22,10 +22,10 @@ public class DragRaceActivity extends Activity {
         ((TextView)findViewById(R.id.speed_display)).setText(getString(R.string.speed) + " " + getString(R.string.speed_units));
         ((TextView)findViewById(R.id.cadence_display)).setText(getString(R.string.cadence) + " " + getString(R.string.cadence_units));
     }
-    
-    //TODO: this call is causing the app to crash with error: did not call through to super.onDestroy() 
+     
     @Override
     protected void onDestroy() {
+    	super.onDestroy();
     	updateGlobals();
     }
     
@@ -39,7 +39,7 @@ public class DragRaceActivity extends Activity {
     private void updateGlobals() {
     	SharedPreferences settings = getPreferences(0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(Constants.RIDERID, AppData.Rider()+1);
+        editor.putInt(Constants.RIDERID, AppData.riderID + 1);
         editor.putInt(Constants.RIDERLAP, 0);
         editor.putInt(Constants.RACELAP, 0);
         editor.putInt(Constants.RACEID, 0);
