@@ -80,8 +80,13 @@
 		</activity>
 		
 		<provider
-		    android:name=".contentprovider.MyTodoContentProvider"
-		    android:authorities="de.vogella.android.todos.contentprovider" >
+		    android:name=".sqlite.contentProvider.LapsContentProvider"
+		    android:authorities="edu.wvu.hpvracer.sqlite.contentProvider" >
+		</provider>
+		
+		<provider
+		    android:name=".sqlite.contentProvider.RacesContentProvider"
+		    android:authorities="edu.wvu.hpvracer.sqlite.contentProvider" >
 		</provider>
 
     </application>
