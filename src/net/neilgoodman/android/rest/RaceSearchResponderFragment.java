@@ -20,10 +20,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import edu.wvu.hpvracer.DragRaceSelectorActivity;
+import edu.wvu.hpvracer.RaceSelectorActivity;
 import edu.wvu.hpvracer.ListObject;
 
 public class RaceSearchResponderFragment extends RESTResponderFragment {
+	
     private static String TAG = RaceSearchResponderFragment.class.getName();
     
     // We cache our stored races here so that we can return right away
@@ -42,7 +43,8 @@ public class RaceSearchResponderFragment extends RESTResponderFragment {
     }
 
     private void setRaces() {
-        final DragRaceSelectorActivity activity = (DragRaceSelectorActivity) getActivity();
+    	
+        final RaceSelectorActivity activity = (RaceSelectorActivity) getActivity();
         
         if (mRaces == null && activity != null) {
             // This is where we make our REST call to the service. We also pass in our ResultReceiver
@@ -59,7 +61,7 @@ public class RaceSearchResponderFragment extends RESTResponderFragment {
             // here, but I wanted to illustrate how to use the Bundle params.
             Bundle params = new Bundle();
             params.putString("d", "2012/11/24");
-            params.putString("t", "Drag");
+            params.putString("t", activity.RaceType);
             
             intent.putExtra(RESTService.EXTRA_PARAMS, params);
             intent.putExtra(RESTService.EXTRA_RESULT_RECEIVER, getResultReceiver());
@@ -79,7 +81,7 @@ public class RaceSearchResponderFragment extends RESTResponderFragment {
                 adapter.add(race);
             }
             
-            // Add a listener for clicks on the list (rm)
+            // Add a listener for clicks on the list (rcm)
             ListFragment myList = activity.getListFragment();
             final ListView lv = myList.getListView();
             lv.setOnItemClickListener(new OnItemClickListener() {

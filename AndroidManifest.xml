@@ -27,7 +27,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
         <receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
@@ -41,7 +40,8 @@
 
         <service android:name="edu.wvu.hpvracer.GCMIntentService" />
         <service android:name="net.neilgoodman.android.rest.RESTService" />
-        
+        <service android:name="edu.wvu.hpvracer.sqlite.contentProvider.QueryService" />
+
         <activity
             android:name="edu.wvu.hpvracer.MainActivity"
             android:label="@string/title_activity_main" >
@@ -72,22 +72,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.wvu.hpvracer.MainActivity" />
         </activity>
-		<activity android:name="edu.wvu.hpvracer.DragRaceSelectorActivity" 
-            android:label="@string/title_activity_drag_race_selector" >
+        <activity
+            android:name="edu.wvu.hpvracer.RaceSelectorActivity"
+            android:label="@string/title_race_selector" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.wvu.hpvracer.MainActivity" />
-		</activity>
-		
-		<provider
-		    android:name=".sqlite.contentProvider.LapsContentProvider"
-		    android:authorities="edu.wvu.hpvracer.sqlite.contentProvider" >
-		</provider>
-		
-		<provider
-		    android:name=".sqlite.contentProvider.RacesContentProvider"
-		    android:authorities="edu.wvu.hpvracer.sqlite.contentProvider" >
-		</provider>
+        </activity>
+        
+        <provider
+            android:name="edu.wvu.hpvracer.sqlite.contentProvider.LapsContentProvider"
+            android:authorities="edu.wvu.hpvracer.sqlite.contentProvider" >
+        </provider>
+        
+        <provider
+            android:name="edu.wvu.hpvracer.sqlite.contentProvider.RacesContentProvider"
+            android:authorities="edu.wvu.hpvracer.sqlite.contentProvider" >
+        </provider>
 
     </application>
 

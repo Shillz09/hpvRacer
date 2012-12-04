@@ -1,32 +1,141 @@
 package edu.wvu.hpvracer;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 
-public class AppData {
+public class AppData extends Activity {
 	
-	public static int riderID = 0;
-	public static int raceID = 0;
-	public static int lapStartTime = 0;
-	public static int raceLapNumber = 0;
-	public static int riderLapNumber = 0;
-	public static long ghostSpeed = 0;
-	public static long ghostCadence = 80;
-	public static SharedPreferences settings;	//refers to local android device storage
-
+	private static int riderID;
+	private static int raceID;
+	private static int raceLapNumber;
+	private static int riderLapNumber;
+	private static int ghostSpeed;
+	private static int ghostCadence;
+	private static SharedPreferences settings;
+	//= getPreferences(0);
+	
 	/**
 	 * @param args
 	 */
-	public static void NewRider() {
-		riderID++;
-		riderLapNumber = 1;
-		//TODO: store new IDs in database
+	public AppData(SharedPreferences p) {
+		settings = p;
+		riderID = settings.getInt(Constants.RIDERID, -1);
+		raceID = settings.getInt(Constants.RACEID, -1);
+		raceLapNumber = settings.getInt(Constants.RACELAP, 0);
+		riderLapNumber = settings.getInt(Constants.RIDERLAP, 0);
+		ghostCadence = settings.getInt(Constants.GHOSTCADENCE, 80);
+		ghostSpeed = settings.getInt(Constants.GHOSTSPEED, 35);
+
 	}
 	
-	public static void EndRace() {
+	public void RiderID(int i) {
+		riderID = i;
+		storeGlobalVarInt(Constants.RIDERID, i);
+	}
+	public int RiderID() {
+		return riderID;
+	}
+	
+	public void RaceID(int i) {
+		raceID = i;
+		storeGlobalVarInt(Constants.RACEID, i);
+	}
+	public int RaceID() {
+		return raceID;
+	}
+	
+	public void RaceLap(int i) {
+		raceLapNumber = i;
+		storeGlobalVarInt(Constants.RACELAP , i);
+	}
+	public int RaceLap() {
+		return raceLapNumber;
+	}
+	
+	public void RiderLap(int i){
+		riderLapNumber = i;
+		storeGlobalVarInt(Constants.RIDERLAP, i);
+	}
+	public int RiderLap() {
+		return riderLapNumber;
+	}
+	
+	public void GhostCadence(int i) {
+		ghostCadence = i;
+		storeGlobalVarInt(Constants.GHOSTCADENCE, i);
+	}
+	public int GhostCadence() {
+		return ghostCadence;
+	}
+	
+	public void GhostSpeed(int i){
+		ghostSpeed = i;
+		storeGlobalVarInt(Constants.GHOSTSPEED, i);
+	}
+	public int GhostSpeed() {
+		return ghostSpeed;
+	}
+    
+    public void IncrementLap(boolean sameRider){
+    	raceLapNumber++;
+    	if (sameRider) {
+    		riderLapNumber++;
+    	} else {
+    		NewRider();
+    	}
+    	storeGlobalVarInt(Constants.RIDERLAP, riderLapNumber);
+		storeGlobalVarInt(Constants.RACELAP, raceLapNumber);
+    }
+    
+	public void NewRider() {
+		riderID++;
+		riderLapNumber = 1;
+		storeGlobalVarInt(Constants.RIDERID, riderID);
+		storeGlobalVarInt(Constants.RIDERLAP, riderLapNumber);
+	}
+	
+	public void EndRace() {
 		raceID = 0;
 		raceLapNumber = 0;
 		riderLapNumber = 0;
-		riderID = 0;
+		riderID = riderID + 1;
+		storeGlobalVarInt(Constants.RACEID, raceID);
+		storeGlobalVarInt(Constants.RIDERID, riderID);
+		storeGlobalVarInt(Constants.RIDERLAP, riderLapNumber);
+		storeGlobalVarInt(Constants.RACELAP, raceLapNumber);
 	}
+	
+	public static String ToString() {
+		String data = null;
+		
+		data = "Rider ID = " + riderID;
+		data += "\nRider Lap Number = " + riderLapNumber;
+		data += "\nRace ID = " + raceID;
+		data += "\nRace Lap Number = " + raceLapNumber;
+		data += "\nGhost Speed = " + ghostSpeed;
+		data += "\nGhost Cadence = " + ghostCadence;
+		
+		return data;
+	}
+	
 
+    private void storeGlobalVarInt(String varName, int value) {
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(varName, value);
+        editor.commit();
+    }
+
+    /*
+    private void storeGlobalVarString(String varName, String value) {
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(varName, value);
+        editor.commit();
+    }
+    private void storeGlobalVarLong(String varName, long value) {
+    	SharedPreferences settings = getPreferences(0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putLong(varName, value);
+        editor.commit();
+    }
+	*/
 }

@@ -2,33 +2,35 @@ package edu.wvu.hpvracer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
-import com.google.android.gcm.GCMRegistrar;
 
 public class MainActivity extends Activity {
 	final String TAG="edu.wvu.hpvracer MainActivity";
+	public static final String RACETYPE = "RaceType";
+	public static final String DRAGRACE = "Drag";
+	public static final String ENDURANCERACE = "Endurance";
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        //TODO: implement this for the tablet MainActivity; not needed on phone
+        //
         // GCM (google cloud messaging)
-        GCMRegistrar.checkDevice(this);
-        GCMRegistrar.checkManifest(this);	// this is needed for testing; can be removed when published
-        String regId = GCMRegistrar.getRegistrationId(this);
-        if (regId.equals("")) {
-        	GCMRegistrar.register(this, Constants.SENDER_ID);
-        } else {
-        	Log.v(TAG, "Already registered");
-        }
-        final String FinalRegId = GCMRegistrar.getRegistrationId(this);
-        storeGlobalVariable(Constants.GCMREGID, FinalRegId);
+        //GCMRegistrar.checkDevice(this);
+        //GCMRegistrar.checkManifest(this);	// this is needed for testing; can be removed when published
+        //String regId = GCMRegistrar.getRegistrationId(this);
+        //if (regId.equals("")) {
+        //	GCMRegistrar.register(this, Constants.SENDER_ID);
+        //} else {
+        //	Log.v(TAG, "Already registered");
+        //}
+        //final String FinalRegId = GCMRegistrar.getRegistrationId(this);
+        //AppData.storeGlobalVariable(Constants.GCMREGID, FinalRegId);
     }
 
     @Override
@@ -37,20 +39,15 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    public void storeGlobalVariable(String varName, String value) {
-    	SharedPreferences settings = getPreferences(0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(varName, value);
-        editor.commit();
-    }
-    
     public void startDragRace(View view){
-    	Intent intent = new Intent(this, DragRaceSelectorActivity.class);
+    	Intent intent = new Intent(this, RaceSelectorActivity.class);
+    	intent.putExtra(RACETYPE, DRAGRACE);
     	startActivity(intent);
     }
     
     public void startEnduranceRace(View view){
-    	Intent intent = new Intent(this, EnduranceRaceActivity.class);
+    	Intent intent = new Intent(this, RaceSelectorActivity.class);
+    	intent.putExtra(RACETYPE, ENDURANCERACE);
     	startActivity(intent);
     }
     

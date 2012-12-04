@@ -4,18 +4,18 @@
     	<item name="android:textColor">@color/fontColor</item>
     </style>
 
-    <style name="DragRace" parent="android:Theme.Light">
+    <style name="Race" parent="android:Theme.Light">
     	<item name="android:background">@color/green</item>
     	<item name="android:padding">25dip</item>
     	<item name="android:orientation">vertical</item>
     </style>
     
-    <style name="DragRaceTable" parent="android:Theme.Light">
+    <style name="RaceTable" parent="android:Theme.Light">
     	<item name="android:gravity">center_horizontal</item>
     	<item name="android:background">@color/white</item>
     </style>
     
-    <style name="DragRaceData" parent="DragRaceTable">
+    <style name="RaceData" parent="RaceTable">
     	<item name="android:gravity">center_horizontal</item>
     	<item name="android:textColor">@color/fontColor</item>
     	<item name="android:textSize">20sp</item>

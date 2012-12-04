@@ -27,6 +27,6 @@
         android:text="@string/button_settings"
         android:layout_below="@id/button_enduranceRace"
         android:layout_centerHorizontal="true"
-        android:onClick="RestTest" />
+        android:onClick="startSettings" />
 
 </RelativeLayout>

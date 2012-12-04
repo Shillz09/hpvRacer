@@ -8,19 +8,28 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.widget.ArrayAdapter;
-//TODO: note this loaded the list of races fine on home network. Why didn't races load at school?
-// Can the lack of races as soon on campus be duplicated?
-// Handle case of no network connection or slow network: show "none of these" before races load as well as after
-public class DragRaceSelectorActivity extends FragmentActivity {
+import android.widget.Toast;
+
+public class RaceSelectorActivity extends FragmentActivity {
 	public final static String RACETITLE = "edu.wvu.hpvracer.RACETITLE";
 	public final static String RACEID = "edu.wvu.hpvracer.RACEID";
+	public  String RaceType;
     private ArrayAdapter<ListObject> mAdapter;
     private ListFragment list;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	// GET INTENT EXTRAS
+    	Bundle extras = getIntent().getExtras();
+    	if (extras == null) {
+    	    return;
+	    }
+    	// Get data via the key
+    	//RaceType = extras.getString(MainActivity.RACETYPE.toString());
+    	RaceType = extras.getString(MainActivity.RACETYPE);
+    	
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drag_race_selector);
+        setContentView(R.layout.activity_race_selector);
         
         mAdapter = new ArrayAdapter<ListObject>(this, R.layout.item_label_list);
         
@@ -35,7 +44,7 @@ public class DragRaceSelectorActivity extends FragmentActivity {
         
         // Let's set our list adapter to a simple ArrayAdapter.
         list.setListAdapter(mAdapter);
-                
+        
         // RESTResponderFragments call setRetainedInstance(true) in their onCreate() method. So that means
         // we need to check if our FragmentManager is already storing an instance of the responder.
         RaceSearchResponderFragment responder = (RaceSearchResponderFragment) fm.findFragmentByTag("RESTResponder");
@@ -62,11 +71,34 @@ public class DragRaceSelectorActivity extends FragmentActivity {
     }
     
     public void StartRace(ListObject selectedRace) {
-    	Intent intent = new Intent(this, DragRaceActivity.class);
-    	intent.putExtra(RACEID, selectedRace.id);
-    	intent.putExtra(RACETITLE, selectedRace.title);
     	
-    	startActivity(intent);
+    	Intent intent = new Intent();
+    	Boolean ok = false;
+    	
+    	if (RaceType.equals(MainActivity.DRAGRACE)) {
+    		ok = true;
+    		intent = new Intent(this, DragRaceActivity.class);
+    			
+    	} else if (RaceType.equals(MainActivity.ENDURANCERACE)) {
+    		ok = true;
+        	intent = new Intent(this, EnduranceRaceActivity.class);
+    			
+    	} else {
+    		ok = false;
+    		Toast t = Toast.makeText(this, "Race Type Not Found.", Toast.LENGTH_LONG);
+    		t.show();
+    	}
+    	
+    	if (ok) {
+	    	// store chosen race ID
+	    	AppData d = new AppData(getPreferences(0));
+	        d.RaceID(selectedRace.id);
+
+	        // set extras and start next activity
+	    	intent.putExtra(RACEID, selectedRace.id);
+	    	intent.putExtra(RACETITLE, selectedRace.title);
+	    	startActivity(intent);
+    	}
     }
 
 }

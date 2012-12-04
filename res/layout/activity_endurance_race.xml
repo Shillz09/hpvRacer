@@ -1,14 +1,92 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
 
-    <TextView
+	<TableLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+	    android:id="@+id/dataTable"
+	    style="@style/Race"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:stretchColumns="0,1" >
+	  
+	  <TableRow
+	      style="@style/RaceTable"
+	      android:layout_width="match_parent"
+	      android:layout_height="match_parent" >
+	      
+	    <TextView
+	        android:id="@+id/title"
+	        style="@style/RaceData"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:text="@string/title_activity_drag_race"
+	        android:textSize="20sp"
+	        android:textStyle="bold"
+	        tools:context=".EnduranceRaceActivity" />
+	    
+	  </TableRow>
+	  
+	   <TableRow
+	       style="@style/RaceTable"
+	       android:layout_width="match_parent"
+	       android:layout_height="match_parent" >
+	    
+	    <!--  col 1 -->
+
+		<TextView
+		    android:id="@+id/speed_display"
+		    style="@style/RaceData"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:text="@string/speed"
+		    tools:context=".EnduranceRaceActivity" />
+		
+		<!-- col 2 -->
+
+	    <TextView
+	        android:id="@+id/time_display"
+	        style="@style/RaceData"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:text="@string/time"
+	        tools:context=".EnduranceRaceActivity"
+	        android:typeface="sans" />
+	    
+	   </TableRow>
+	   
+	   <TableRow
+	       style="@style/RaceData"
+	       android:layout_width="match_parent"
+	       android:layout_height="match_parent" >
+	    
+	    <!--  col 1 -->
+
+   	    <TextView
+   	        android:id="@+id/cadence_display"
+   	        style="@style/RaceData"
+   	        android:layout_width="match_parent"
+   	        android:layout_height="match_parent"
+   	        android:text="@string/cadence"
+   	        tools:context=".EnduranceRaceActivity" />
+   	    
+   	    <!--  col 2 -->
+
+   	    <TextView
+   	        style="@style/RaceData"
+   	        android:layout_width="match_parent"
+   	        android:layout_height="match_parent" />
+	         
+	   </TableRow>
+
+    <Button
+        android:id="@+id/button_endRace"
+        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".EnduranceRaceActivity" />
-
-</RelativeLayout>
+        android:gravity="right"
+        android:onClick="endRace"
+        android:text="@string/button_endRace"
+        android:width="10sp" />
+	   
+	</TableLayout>
+	
+	    		    

@@ -15,8 +15,8 @@ public class DragRaceActivity extends Activity {
         setContentView(R.layout.activity_drag_race);
         
         Intent intent = getIntent();
-        String raceName = intent.getStringExtra(DragRaceSelectorActivity.RACETITLE);
-        int raceID = intent.getIntExtra(DragRaceSelectorActivity.RACEID, 0);
+        String raceName = intent.getStringExtra(RaceSelectorActivity.RACETITLE);
+        int raceID = intent.getIntExtra(RaceSelectorActivity.RACEID, 0);
         
         ((TextView)findViewById(R.id.title)).setText(raceName + " -- " + raceID);
         ((TextView)findViewById(R.id.speed_display)).setText(getString(R.string.speed) + " " + getString(R.string.speed_units));
@@ -26,7 +26,6 @@ public class DragRaceActivity extends Activity {
     @Override
     protected void onDestroy() {
     	super.onDestroy();
-    	updateGlobals();
     }
     
     public void endRace(View view){
@@ -37,14 +36,9 @@ public class DragRaceActivity extends Activity {
     }
     
     private void updateGlobals() {
-    	SharedPreferences settings = getPreferences(0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(Constants.RIDERID, AppData.riderID + 1);
-        editor.putInt(Constants.RIDERLAP, 0);
-        editor.putInt(Constants.RACELAP, 0);
-        editor.putInt(Constants.RACEID, 0);
-        editor.commit();
-    	AppData.EndRace();
+    	SharedPreferences prefs = getPreferences(0);
+    	AppData d  = new AppData(prefs);
+    	d.EndRace();
     }
     
 }

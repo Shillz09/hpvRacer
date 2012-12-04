@@ -3,19 +3,19 @@
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:tools="http://schemas.android.com/tools"
 	    android:id="@+id/dataTable"
-	    style="@style/DragRace"
+	    style="@style/Race"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:stretchColumns="0,1" >
 	  
 	  <TableRow
-	      style="@style/DragRaceTable"
+	      style="@style/RaceTable"
 	      android:layout_width="match_parent"
 	      android:layout_height="match_parent" >
 	      
 	    <TextView
 	        android:id="@+id/title"
-	        style="@style/DragRaceData"
+	        style="@style/RaceData"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:text="@string/title_activity_drag_race"
@@ -26,7 +26,7 @@
 	  </TableRow>
 	  
 	   <TableRow
-	       style="@style/DragRaceTable"
+	       style="@style/RaceTable"
 	       android:layout_width="match_parent"
 	       android:layout_height="match_parent" >
 	    
@@ -34,7 +34,7 @@
 
 		<TextView
 		    android:id="@+id/speed_display"
-		    style="@style/DragRaceData"
+		    style="@style/RaceData"
 		    android:layout_width="match_parent"
 		    android:layout_height="match_parent"
 		    android:text="@string/speed"
@@ -44,7 +44,7 @@
 
 	    <TextView
 	        android:id="@+id/time_display"
-	        style="@style/DragRaceData"
+	        style="@style/RaceData"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:text="@string/time"
@@ -54,7 +54,7 @@
 	   </TableRow>
 	   
 	   <TableRow
-	       style="@style/DragRaceData"
+	       style="@style/RaceData"
 	       android:layout_width="match_parent"
 	       android:layout_height="match_parent" >
 	    
@@ -62,7 +62,7 @@
 
    	    <TextView
    	        android:id="@+id/cadence_display"
-   	        style="@style/DragRaceData"
+   	        style="@style/RaceData"
    	        android:layout_width="match_parent"
    	        android:layout_height="match_parent"
    	        android:text="@string/cadence"
@@ -71,7 +71,7 @@
    	    <!--  col 2 -->
 
    	    <TextView
-   	        style="@style/DragRaceData"
+   	        style="@style/RaceData"
    	        android:layout_width="match_parent"
    	        android:layout_height="match_parent" />
 	         

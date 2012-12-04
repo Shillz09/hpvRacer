@@ -1,31 +1,34 @@
 package edu.wvu.hpvracer;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SettingsActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
         
-        String message = "you're in the settings component";
+        ((TextView)findViewById(R.id.currentSettings)).setText(AppData.ToString());
         
-        TextView textView = new TextView(this);
-        textView.setTextSize(40);
-        textView.setText(message);
-        
-        setContentView(textView);
-
     }
-    
-    public void changeRace(View view){
-    	//TODO: put new race record in table, get ID, use toast to display success, return home
+        
+    public void clearSettings(View view){
+    	AppData data = new AppData(getPreferences(0));
+    	data.EndRace();
+    	((TextView)findViewById(R.id.currentSettings)).setText(AppData.ToString());
+    	Toast toast = Toast.makeText(this, "Settings cleared", Toast.LENGTH_SHORT);
+    	toast.show();
+    }
+
+    public void goHome(View view){
     	Intent intent = new Intent(this, MainActivity.class);
     	startActivity(intent);
-    }
-
+	}
+    
 }
