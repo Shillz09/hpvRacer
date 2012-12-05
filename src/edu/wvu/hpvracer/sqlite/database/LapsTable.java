@@ -1,15 +1,16 @@
 package edu.wvu.hpvracer.sqlite.database;
 
+import edu.wvu.hpvracer.sqlite.contentProvider.QueryHelper.Tables;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 public class LapsTable {
 	
   // Database table
-  public static final String TABLE_LAPS = "hpvLaps";
+  public static final Tables TABLE_LAPS = Tables.hpvLaps;
   public static final String COLUMN_ID = "_id";
-  public static final String COLUMN_LAP_NUMBER = "category";
-  public static final String COLUMN_LAP_START_TIME = "summary";
+  public static final String COLUMN_LAP_NUMBER = "lapNumber";
+  public static final String COLUMN_LAP_START_TIME = "startTime";
 
   // Database creation SQL statement
   private static final String DATABASE_CREATE = "create table " 

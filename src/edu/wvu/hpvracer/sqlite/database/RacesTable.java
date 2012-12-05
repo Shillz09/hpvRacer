@@ -1,21 +1,22 @@
 package edu.wvu.hpvracer.sqlite.database;
 
+import edu.wvu.hpvracer.sqlite.contentProvider.QueryHelper.Tables;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 public class RacesTable {
 	
   // Database table
-  public static final String TABLE_RACE_DATA = "hpvRaceData";
+  public static final Tables TABLE_RACE_DATA = Tables.hpvRaceData;
   public static final String COLUMN_ID = "_id";
-  public static final String COLUMN_READING_TIME = "category";
-  public static final String COLUMN_KEY = "summary";
-  public static final String COLUMN_VALUE = "summary";
-  public static final String COLUMN_RIDER_ID = "summary";
-  public static final String COLUMN_RACE_ID = "summary";
-  public static final String COLUMN_RIDER_LAP = "summary";
-  public static final String COLUMN_RACE_LAP = "summary";
-  public static final String COLUMN_UPLOAD_STATUS = "summary";
+  public static final String COLUMN_READING_TIME = "readingTime";
+  public static final String COLUMN_KEY = "key";
+  public static final String COLUMN_VALUE = "value";
+  public static final String COLUMN_RIDER_ID = "riderID";
+  public static final String COLUMN_RACE_ID = "raceID";
+  public static final String COLUMN_RIDER_LAP = "riderLap";
+  public static final String COLUMN_RACE_LAP = "raceLap";
+  public static final String COLUMN_UPLOAD_STATUS = "uploadStatus";
   
   // Database creation SQL statement
   private static final String DATABASE_CREATE = "create table "

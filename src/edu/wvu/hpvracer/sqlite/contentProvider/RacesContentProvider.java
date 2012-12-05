@@ -58,7 +58,7 @@ public class RacesContentProvider extends ContentProvider {
     checkColumns(projection);
 
     // Set the table
-    queryBuilder.setTables(RacesTable.TABLE_RACE_DATA);
+    queryBuilder.setTables(RacesTable.TABLE_RACE_DATA.toString());
 
     int uriType = sURIMatcher.match(uri);
     switch (uriType) {
@@ -94,7 +94,7 @@ public class RacesContentProvider extends ContentProvider {
     long id = 0;
     switch (uriType) {
     case RACES:
-      id = sqlDB.insert(RacesTable.TABLE_RACE_DATA, null, values);
+      id = sqlDB.insert(RacesTable.TABLE_RACE_DATA.toString(), null, values);
       break;
     default:
       throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -110,17 +110,17 @@ public class RacesContentProvider extends ContentProvider {
     int rowsDeleted = 0;
     switch (uriType) {
     case RACES:
-      rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA, selection,
+      rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA.toString(), selection,
           selectionArgs);
       break;
     case RACE_ID:
       String id = uri.getLastPathSegment();
       if (TextUtils.isEmpty(selection)) {
-        rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA,
+        rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA.toString(),
             RacesTable.COLUMN_ID + "=" + id, 
             null);
       } else {
-        rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA,
+        rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA.toString(),
             RacesTable.COLUMN_ID + "=" + id 
             + " and " + selection,
             selectionArgs);
@@ -142,7 +142,7 @@ public class RacesContentProvider extends ContentProvider {
     int rowsUpdated = 0;
     switch (uriType) {
     case RACES:
-      rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA, 
+      rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA.toString(), 
           values, 
           selection,
           selectionArgs);
@@ -150,12 +150,12 @@ public class RacesContentProvider extends ContentProvider {
     case RACE_ID:
       String id = uri.getLastPathSegment();
       if (TextUtils.isEmpty(selection)) {
-        rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA, 
+        rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA.toString(), 
             values,
             RacesTable.COLUMN_ID + "=" + id, 
             null);
       } else {
-        rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA, 
+        rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA.toString(), 
             values,
             RacesTable.COLUMN_ID + "=" + id 
             + " and " 

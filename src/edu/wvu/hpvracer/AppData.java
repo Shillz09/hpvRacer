@@ -2,6 +2,7 @@ package edu.wvu.hpvracer;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 public class AppData extends Activity {
 	
@@ -12,11 +13,13 @@ public class AppData extends Activity {
 	private static int ghostSpeed;
 	private static int ghostCadence;
 	private static SharedPreferences settings;
+	private boolean readOnly;
 	//= getPreferences(0);
 	
-	/**
-	 * @param args
-	 */
+	public AppData() {
+		// empty constructor used to access static values -- can not init from SharedPreferences
+		readOnly = true;
+	}
 	public AppData(SharedPreferences p) {
 		settings = p;
 		riderID = settings.getInt(Constants.RIDERID, -1);
@@ -25,84 +28,120 @@ public class AppData extends Activity {
 		riderLapNumber = settings.getInt(Constants.RIDERLAP, 0);
 		ghostCadence = settings.getInt(Constants.GHOSTCADENCE, 80);
 		ghostSpeed = settings.getInt(Constants.GHOSTSPEED, 35);
-
+		readOnly = false;
 	}
 	
 	public void RiderID(int i) {
-		riderID = i;
-		storeGlobalVarInt(Constants.RIDERID, i);
+		if (!readOnly) {
+			riderID = i;
+			storeGlobalVarInt(Constants.RIDERID, i);
+		} else {
+			MakeToast("Rider ID");
+		}
 	}
 	public int RiderID() {
 		return riderID;
 	}
 	
 	public void RaceID(int i) {
-		raceID = i;
-		storeGlobalVarInt(Constants.RACEID, i);
+		if (!readOnly) {
+			raceID = i;
+			storeGlobalVarInt(Constants.RACEID, i);
+		} else {
+			MakeToast("Race ID");
+		}
 	}
 	public int RaceID() {
 		return raceID;
 	}
 	
 	public void RaceLap(int i) {
-		raceLapNumber = i;
-		storeGlobalVarInt(Constants.RACELAP , i);
+		if (!readOnly) {
+			raceLapNumber = i;
+			storeGlobalVarInt(Constants.RACELAP , i);
+		} else {
+			MakeToast("Race lap");
+		}
 	}
 	public int RaceLap() {
 		return raceLapNumber;
 	}
 	
 	public void RiderLap(int i){
-		riderLapNumber = i;
-		storeGlobalVarInt(Constants.RIDERLAP, i);
+		if (!readOnly) {
+			riderLapNumber = i;
+			storeGlobalVarInt(Constants.RIDERLAP, i);
+		} else {
+			MakeToast("Rider Lap");
+		}
 	}
 	public int RiderLap() {
 		return riderLapNumber;
 	}
 	
 	public void GhostCadence(int i) {
-		ghostCadence = i;
-		storeGlobalVarInt(Constants.GHOSTCADENCE, i);
+		if (!readOnly) {
+			ghostCadence = i;
+			storeGlobalVarInt(Constants.GHOSTCADENCE, i);
+		} else {
+			MakeToast("Ghost Cadence");
+		}
 	}
 	public int GhostCadence() {
 		return ghostCadence;
 	}
 	
 	public void GhostSpeed(int i){
-		ghostSpeed = i;
-		storeGlobalVarInt(Constants.GHOSTSPEED, i);
+		if (!readOnly) {
+			ghostSpeed = i;
+			storeGlobalVarInt(Constants.GHOSTSPEED, i);
+		} else {
+			MakeToast("Ghost Speed");
+		}
 	}
 	public int GhostSpeed() {
 		return ghostSpeed;
 	}
     
     public void IncrementLap(boolean sameRider){
-    	raceLapNumber++;
-    	if (sameRider) {
-    		riderLapNumber++;
+    	if (!readOnly) {
+	    	raceLapNumber++;
+	    	if (sameRider) {
+	    		riderLapNumber++;
+	    	} else {
+	    		NewRider();
+	    	}
+	    	storeGlobalVarInt(Constants.RIDERLAP, riderLapNumber);
+			storeGlobalVarInt(Constants.RACELAP, raceLapNumber);
     	} else {
-    		NewRider();
+    		MakeToast("New Lap");
     	}
-    	storeGlobalVarInt(Constants.RIDERLAP, riderLapNumber);
-		storeGlobalVarInt(Constants.RACELAP, raceLapNumber);
     }
     
 	public void NewRider() {
-		riderID++;
-		riderLapNumber = 1;
-		storeGlobalVarInt(Constants.RIDERID, riderID);
-		storeGlobalVarInt(Constants.RIDERLAP, riderLapNumber);
+		if (!readOnly) {
+			riderID++;
+			riderLapNumber = 1;
+			storeGlobalVarInt(Constants.RIDERID, riderID);
+			storeGlobalVarInt(Constants.RIDERLAP, riderLapNumber);
+		} else {
+			MakeToast("New Rider");
+		}
 	}
 	
 	public void EndRace() {
-		raceID = 0;
-		raceLapNumber = 0;
-		riderLapNumber = 0;
-		riderID = riderID + 1;
-		storeGlobalVarInt(Constants.RACEID, raceID);
-		storeGlobalVarInt(Constants.RIDERID, riderID);
-		storeGlobalVarInt(Constants.RIDERLAP, riderLapNumber);
-		storeGlobalVarInt(Constants.RACELAP, raceLapNumber);
+		if (!readOnly) {
+			raceID = 0;
+			raceLapNumber = 0;
+			riderLapNumber = 0;
+			riderID = riderID + 1;
+			storeGlobalVarInt(Constants.RACEID, raceID);
+			storeGlobalVarInt(Constants.RIDERID, riderID);
+			storeGlobalVarInt(Constants.RIDERLAP, riderLapNumber);
+			storeGlobalVarInt(Constants.RACELAP, raceLapNumber);
+		} else {
+			MakeToast("End Race");
+		}
 	}
 	
 	public static String ToString() {
@@ -123,6 +162,11 @@ public class AppData extends Activity {
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt(varName, value);
         editor.commit();
+    }
+    
+    private void MakeToast(String d) {
+    	Toast t = Toast.makeText(this, "Can not save data, " + d + ": AppData is in readOnly mode. Create using 'AppData(getPreferences(0))' to edit.", Toast.LENGTH_LONG);
+		t.show();
     }
 
     /*

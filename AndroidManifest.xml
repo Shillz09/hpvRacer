@@ -40,7 +40,7 @@
 
         <service android:name="edu.wvu.hpvracer.GCMIntentService" />
         <service android:name="net.neilgoodman.android.rest.RESTService" />
-        <service android:name="edu.wvu.hpvracer.sqlite.contentProvider.QueryService" />
+        <service android:name="edu.wvu.hpvracer.sqlite.contentProvider.QueryHelper" />
 
         <activity
             android:name="edu.wvu.hpvracer.MainActivity"
