@@ -7,15 +7,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import edu.wvu.hpvracer.AppData;
-import edu.wvu.hpvracer.sqlite.database.SQLConstants.Tables;
+import edu.wvu.hpvracer.sqlite.database.SQLConstants.*;
 import edu.wvu.hpvracer.sqlite.database.SQLConstants;
 
 
-/* USAGE
+/* USAGE :: INSERT INTO TABLES
+ * NOTE: Race data only requires "key", "value" and "reading time" the rest of the values are collected from AppData
  * 
  * long unixTime = System.currentTimeMillis() / 1000L;
  * QueryHelper.Tables t = LapsTable.TABLE_LAPS;
  * Bundle e = new Bundle();
+ * e.putString(QueryHelper.DBACTION, SQLConstants.DatabaseActions.insert.toString()); 
  * e.putString(QueryHelper.TABLENAME, t.toString());
  * e.putInt(LapsTable.COLUMN_LAP_NUMBER , 1);
  * e.putLong(LapsTable.COLUMN_LAP_START_TIME, unixTime);
@@ -30,6 +32,8 @@ import edu.wvu.hpvracer.sqlite.database.SQLConstants;
 public class QueryHelper extends IntentService {
 
 	public static final String TABLENAME = "tableName";
+	public static final String DBACTION = "dbAction";
+	
 	private final int uploadThreshold = 50;
 	private static final String TAG = QueryHelper.class.getName();
 	private static int RaceDataPostCount; 
@@ -47,18 +51,31 @@ public class QueryHelper extends IntentService {
     	    return;
 	    }
     	
-    	String sel = extras.getString(TABLENAME);
-    	Tables selection = Tables.valueOf(sel); 
+    	DatabaseActions dothis = DatabaseActions.valueOf(extras.getString(DBACTION)); 
+    	Tables tableSelection = Tables.valueOf(extras.getString(TABLENAME));
     	
-    	switch (selection) {
-    	
+    	switch (dothis) {
+    	case select:
+    		break;
+    		
+    	case insert:
+        	// insert into one of the tables...
+    		switch (tableSelection) {
     		case hpvLaps:
     			LapsInsert(extras);
     			break;
-    			
     		case hpvRaceData:
     			RaceDataInsert(extras);
     			break;
+        	} // end insert table choice switch
+    		break;
+    		
+    	case update:
+    		break;
+    		
+    	case delete:
+    		break;
+    		
     	}
     	
 	}

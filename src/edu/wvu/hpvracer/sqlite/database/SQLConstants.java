@@ -8,7 +8,10 @@ public class SQLConstants {
 	public static final int DATABASE_VERSION = 1;
 	public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/hpvRacer";
 	public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/hpvRacer";
-
+	public static final String SELECT = "select";
+	public static final String INSERT = "insert";
+	public static final String UPDATE = "update";
+	public static final String DELETE = "delete";
 	
 	// Races Database table
 	public static final String RACES_DATABASE_NAME = "hpvRaceStatsDatabase.db";
@@ -31,6 +34,10 @@ public class SQLConstants {
 	
 	public enum Tables {
 		hpvRaceData, hpvLaps
+	}
+	
+	public enum DatabaseActions {
+		select, insert, update, delete
 	}
 
 }

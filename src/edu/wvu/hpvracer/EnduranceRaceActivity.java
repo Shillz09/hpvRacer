@@ -40,6 +40,7 @@ public class EnduranceRaceActivity extends Activity {
     	Bundle e = new Bundle();
     	
     	// LAPS TABLE
+    	e.putString(QueryHelper.DBACTION, SQLConstants.DatabaseActions.insert.toString());
     	e.putString(QueryHelper.TABLENAME, SQLConstants.TABLE_LAPS);
     	e.putInt(SQLConstants.COLUMN_LAP_NUMBER , ++lapTest);
     	e.putLong(SQLConstants.COLUMN_LAP_START_TIME, unixTime);
@@ -50,6 +51,7 @@ public class EnduranceRaceActivity extends Activity {
     	
     	 //race data table (endurance or drag)
     	 e.clear();
+    	 e.putString(QueryHelper.DBACTION, SQLConstants.DatabaseActions.insert.toString());
     	 e.putString(QueryHelper.TABLENAME,  SQLConstants.TABLE_RACE_DATA);
     	 e.putString(SQLConstants.COLUMN_KEY, "Speed");
     	 e.putInt(SQLConstants.COLUMN_VALUE, 20);
