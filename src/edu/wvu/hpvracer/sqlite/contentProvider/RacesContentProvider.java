@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -12,8 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
-import edu.wvu.hpvracer.sqlite.database.RacesTable;
 import edu.wvu.hpvracer.sqlite.database.RacesDatabaseHelper;
+import edu.wvu.hpvracer.sqlite.database.SQLConstants;
 
 public class RacesContentProvider extends ContentProvider {
 
@@ -24,13 +23,9 @@ public class RacesContentProvider extends ContentProvider {
   private static final int RACES = 10;
   private static final int RACE_ID = 20;
 
-  private static final String AUTHORITY = "edu.wvu.hpvracer.sqlite.contentProvider";
-
+  private static final String AUTHORITY = "edu.wvu.hpvracer.sqlite.RacesContentProvider";
   private static final String BASE_PATH = "hpvRacer";
-  public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
-
-  public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/hpvRacer";
-  public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/hpvRacer";
+  public static final Uri RACE_CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
   static {
@@ -49,13 +44,13 @@ public class RacesContentProvider extends ContentProvider {
       String[] selectionArgs, String sortOrder) {
 
     // Using SQLiteQueryBuilder instead of query() method
-    SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+	SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
     // Check if the caller has requested a column which does not exists
     checkColumns(projection);
 
     // Set the table
-    queryBuilder.setTables(RacesTable.TABLE_RACE_DATA.toString());
+    queryBuilder.setTables(SQLConstants.TABLE_RACE_DATA.toString());
 
     int uriType = sURIMatcher.match(uri);
     switch (uriType) {
@@ -65,7 +60,7 @@ public class RacesContentProvider extends ContentProvider {
 	      
 	    case RACE_ID:
 	      // Adding the ID to the original query
-	      queryBuilder.appendWhere(RacesTable.COLUMN_READING_TIME + "=" + uri.getLastPathSegment());
+	      queryBuilder.appendWhere(SQLConstants.COLUMN_READING_TIME + "=" + uri.getLastPathSegment());
 	      break;
 	    
 	    default:
@@ -92,7 +87,7 @@ public class RacesContentProvider extends ContentProvider {
     long id = 0;
     switch (uriType) {
     case RACES:
-      id = sqlDB.insert(RacesTable.TABLE_RACE_DATA.toString(), null, values);
+      id = sqlDB.insert(SQLConstants.TABLE_RACE_DATA.toString(), null, values);
       break;
     default:
       throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -108,18 +103,18 @@ public class RacesContentProvider extends ContentProvider {
     int rowsDeleted = 0;
     switch (uriType) {
     case RACES:
-      rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA.toString(), selection,
+      rowsDeleted = sqlDB.delete(SQLConstants.TABLE_RACE_DATA.toString(), selection,
           selectionArgs);
       break;
     case RACE_ID:
       String id = uri.getLastPathSegment();
       if (TextUtils.isEmpty(selection)) {
-        rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA.toString(),
-            RacesTable.COLUMN_READING_TIME + "=" + id, 
+        rowsDeleted = sqlDB.delete(SQLConstants.TABLE_RACE_DATA.toString(),
+        		SQLConstants.COLUMN_READING_TIME + "=" + id, 
             null);
       } else {
-        rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA.toString(),
-            RacesTable.COLUMN_READING_TIME + "=" + id 
+        rowsDeleted = sqlDB.delete(SQLConstants.TABLE_RACE_DATA.toString(),
+        		SQLConstants.COLUMN_READING_TIME + "=" + id 
             + " and " + selection,
             selectionArgs);
       }
@@ -140,7 +135,7 @@ public class RacesContentProvider extends ContentProvider {
     int rowsUpdated = 0;
     switch (uriType) {
     case RACES:
-      rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA.toString(), 
+      rowsUpdated = sqlDB.update(SQLConstants.TABLE_RACE_DATA.toString(), 
           values, 
           selection,
           selectionArgs);
@@ -148,14 +143,14 @@ public class RacesContentProvider extends ContentProvider {
     case RACE_ID:
       String id = uri.getLastPathSegment();
       if (TextUtils.isEmpty(selection)) {
-        rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA.toString(), 
+        rowsUpdated = sqlDB.update(SQLConstants.TABLE_RACE_DATA.toString(), 
             values,
-            RacesTable.COLUMN_READING_TIME + "=" + id, 
+            SQLConstants.COLUMN_READING_TIME + "=" + id, 
             null);
       } else {
-        rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA.toString(), 
+        rowsUpdated = sqlDB.update(SQLConstants.TABLE_RACE_DATA.toString(), 
             values,
-            RacesTable.COLUMN_READING_TIME + "=" + id 
+            SQLConstants.COLUMN_READING_TIME + "=" + id 
             + " and " 
             + selection,
             selectionArgs);
@@ -169,10 +164,10 @@ public class RacesContentProvider extends ContentProvider {
   }
 
   private void checkColumns(String[] projection) {
-    String[] available = { RacesTable.COLUMN_READING_TIME, RacesTable.COLUMN_KEY,
-    		RacesTable.COLUMN_VALUE, RacesTable.COLUMN_RIDER_ID, RacesTable.COLUMN_RACE_ID,
-    		RacesTable.COLUMN_RIDER_LAP, RacesTable.COLUMN_RACE_LAP, RacesTable.COLUMN_UPLOAD_STATUS,
-    		RacesTable.COLUMN_READING_TIME };
+    String[] available = { SQLConstants.COLUMN_READING_TIME, SQLConstants.COLUMN_KEY,
+    		SQLConstants.COLUMN_VALUE, SQLConstants.COLUMN_RIDER_ID, SQLConstants.COLUMN_RACE_ID,
+    		SQLConstants.COLUMN_RIDER_LAP, SQLConstants.COLUMN_RACE_LAP, SQLConstants.COLUMN_UPLOAD_STATUS,
+    		SQLConstants.COLUMN_READING_TIME };
     if (projection != null) {
       HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
       HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));

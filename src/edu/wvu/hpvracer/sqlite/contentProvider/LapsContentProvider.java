@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -12,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
-import edu.wvu.hpvracer.sqlite.database.LapsTable;
+import edu.wvu.hpvracer.sqlite.database.SQLConstants;
 import edu.wvu.hpvracer.sqlite.database.LapsDatabaseHelper;
 
 public class LapsContentProvider extends ContentProvider {
@@ -24,13 +23,10 @@ public class LapsContentProvider extends ContentProvider {
   private static final int LAPS = 10;
   private static final int LAP_ID = 20;
 
-  private static final String AUTHORITY = "edu.wvu.hpvracer.sqlite.contentProvider";
+  private static final String AUTHORITY = "edu.wvu.hpvracer.sqlite.LapsContentProvider";
 
   private static final String BASE_PATH = "hpvRacer";
-  public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
-
-  public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/hpvRacer";
-  public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/hpvRacer";
+  public static final Uri LAPS_CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
   static {
@@ -55,7 +51,7 @@ public class LapsContentProvider extends ContentProvider {
 	checkColumns(projection);
 
 	// Set the table
-	queryBuilder.setTables(LapsTable.TABLE_LAPS.toString());
+	queryBuilder.setTables(SQLConstants.TABLE_LAPS.toString());
 
 	int uriType = sURIMatcher.match(uri);
 	switch (uriType) {
@@ -64,7 +60,7 @@ public class LapsContentProvider extends ContentProvider {
 		  
 		case LAP_ID:
 		  // Adding the ID to the original query
-		  queryBuilder.appendWhere(LapsTable.COLUMN_LAP_NUMBER + "=" + uri.getLastPathSegment());
+		  queryBuilder.appendWhere(SQLConstants.COLUMN_LAP_NUMBER + "=" + uri.getLastPathSegment());
 		  break;
 		  
 		default:
@@ -94,7 +90,7 @@ public class LapsContentProvider extends ContentProvider {
 	  switch (uriType) {
 	  
 	  	case LAPS:
-	  		id = sqlDB.insert(LapsTable.TABLE_LAPS.toString(), null, values);
+	  		id = sqlDB.insert(SQLConstants.TABLE_LAPS.toString(), null, values);
 	  		break;
 	  	
 	  	default:
@@ -115,16 +111,16 @@ public class LapsContentProvider extends ContentProvider {
 		switch (uriType) {
 		
 			case LAPS:
-			  rowsDeleted = sqlDB.delete(LapsTable.TABLE_LAPS.toString(), selection, selectionArgs);
+			  rowsDeleted = sqlDB.delete(SQLConstants.TABLE_LAPS.toString(), selection, selectionArgs);
 			  break;
 		
 			case LAP_ID:
 			  String id = uri.getLastPathSegment();
 			  
 			  if (TextUtils.isEmpty(selection)) {
-				rowsDeleted = sqlDB.delete(LapsTable.TABLE_LAPS.toString(), LapsTable.COLUMN_LAP_NUMBER + "=" + id, null);
+				rowsDeleted = sqlDB.delete(SQLConstants.TABLE_LAPS.toString(), SQLConstants.COLUMN_LAP_NUMBER + "=" + id, null);
 			  } else {
-				  rowsDeleted = sqlDB.delete(LapsTable.TABLE_LAPS.toString(), LapsTable.COLUMN_LAP_NUMBER + "=" + id + " and " + selection, selectionArgs);
+				  rowsDeleted = sqlDB.delete(SQLConstants.TABLE_LAPS.toString(), SQLConstants.COLUMN_LAP_NUMBER + "=" + id + " and " + selection, selectionArgs);
 			  }
 			  break;
 		
@@ -147,7 +143,7 @@ public class LapsContentProvider extends ContentProvider {
 	switch (uriType) {
 	
 		case LAPS:
-		  rowsUpdated = sqlDB.update(LapsTable.TABLE_LAPS.toString(), 
+		  rowsUpdated = sqlDB.update(SQLConstants.TABLE_LAPS.toString(), 
 			  values, 
 			  selection,
 			  selectionArgs);
@@ -156,14 +152,14 @@ public class LapsContentProvider extends ContentProvider {
 		case LAP_ID:
 		  String id = uri.getLastPathSegment();
 		  if (TextUtils.isEmpty(selection)) {
-			rowsUpdated = sqlDB.update(LapsTable.TABLE_LAPS.toString(), 
+			rowsUpdated = sqlDB.update(SQLConstants.TABLE_LAPS.toString(), 
 				values,
-				LapsTable.COLUMN_LAP_NUMBER + "=" + id, 
+				SQLConstants.COLUMN_LAP_NUMBER + "=" + id, 
 				null);
 		  } else {
-			rowsUpdated = sqlDB.update(LapsTable.TABLE_LAPS.toString(), 
+			rowsUpdated = sqlDB.update(SQLConstants.TABLE_LAPS.toString(), 
 				values,
-				LapsTable.COLUMN_LAP_NUMBER + "=" + id 
+				SQLConstants.COLUMN_LAP_NUMBER + "=" + id 
 				+ " and " 
 				+ selection,
 				selectionArgs);
@@ -178,8 +174,8 @@ public class LapsContentProvider extends ContentProvider {
   }
 
   private void checkColumns(String[] projection) {
-	String[] available = { LapsTable.COLUMN_LAP_NUMBER,
-		LapsTable.COLUMN_LAP_START_TIME };
+	String[] available = { SQLConstants.COLUMN_LAP_NUMBER,
+		SQLConstants.COLUMN_LAP_START_TIME };
 	
 	if (projection != null) {
 		

@@ -80,17 +80,18 @@
                 android:value="edu.wvu.hpvracer.MainActivity" />
         </activity>
         
-        <provider
-            android:name="edu.wvu.hpvracer.sqlite.contentProvider.LapsContentProvider"
-            android:authorities="edu.wvu.hpvracer.sqlite.contentProvider"
-            android:exported="false" >
-        </provider>
         
         <provider
             android:name="edu.wvu.hpvracer.sqlite.contentProvider.RacesContentProvider"
-            android:authorities="edu.wvu.hpvracer.sqlite.contentProvider"
+            android:authorities="edu.wvu.hpvracer.sqlite.RacesContentProvider"
             android:exported="false" >
         </provider>
+        <provider
+            android:name="edu.wvu.hpvracer.sqlite.contentProvider.LapsContentProvider"
+            android:authorities="edu.wvu.hpvracer.sqlite.LapsContentProvider"
+            android:exported="false" >
+        </provider>
+
 
     </application>
 

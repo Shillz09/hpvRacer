@@ -21,16 +21,19 @@ public class MainActivity extends Activity {
         //TODO: implement this for the tablet MainActivity; not needed on phone
         //
         // GCM (google cloud messaging)
-        //GCMRegistrar.checkDevice(this);
-        //GCMRegistrar.checkManifest(this);	// this is needed for testing; can be removed when published
-        //String regId = GCMRegistrar.getRegistrationId(this);
-        //if (regId.equals("")) {
-        //	GCMRegistrar.register(this, Constants.SENDER_ID);
-        //} else {
-        //	Log.v(TAG, "Already registered");
-        //}
-        //final String FinalRegId = GCMRegistrar.getRegistrationId(this);
-        //AppData.storeGlobalVariable(Constants.GCMREGID, FinalRegId);
+        // GCMRegistrar.checkDevice(this);
+        // GCMRegistrar.checkManifest(this);	// this is needed for testing; can be removed when published
+        // String regId = GCMRegistrar.getRegistrationId(this);
+        // if (regId.equals("")) {
+        // 	GCMRegistrar.register(this, Constants.SENDER_ID);
+        // } else {
+        // 	Log.v(TAG, "Already registered");
+        // }
+        // final String FinalRegId = GCMRegistrar.getRegistrationId(this);
+        // AppData.storeGlobalVariable(Constants.GCMREGID, FinalRegId);
+        
+        // create tables
+        
     }
 
     @Override

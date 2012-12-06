@@ -6,11 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LapsDatabaseHelper extends SQLiteOpenHelper {
 
-  private static final String DATABASE_NAME = "hpvRacerData.db";
-  private static final int DATABASE_VERSION = 1;
-
   public LapsDatabaseHelper(Context context) {
-    super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    super(context, SQLConstants.LAPS_DATABASE_NAME, null, SQLConstants.DATABASE_VERSION);
   }
 
   // Method is called during creation of the database

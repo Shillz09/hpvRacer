@@ -17,15 +17,15 @@ public class AppData extends Activity {
 	public static long raceStartTime;
 	public static final double LAPLENGTH = 1.11847;  // estimated lap length in miles (1.8 km is ASME estimate)
 													//TODO: Make this configurable
-	// TO CALCULATE DISTANCE (See RecordSpeed(speed, unixtime) and DistanceEst())
-	public static double sumOfSpeeds = 0;
-	public static int countOfSpeedReadings = 0;
-	public static long lastReadingTime = 0;
-	public static double averageSpeedMPH = 0;
-	public double distance = 0;
-
 	
-	public static int averageSpeed = 0;
+	// TO CALCULATE DISTANCE (See RecordSpeed(speed, unixtime) and DistanceEst())
+	public static double sumOfSpeeds;
+	public static int countOfSpeedReadings;
+	public static long lastReadingTime;
+	public static double averageSpeedMPH;
+	public double distance;
+	public static int averageSpeed;
+	
 	
 	public AppData() {
 		// empty constructor used to access static values -- can not init from SharedPreferences
@@ -203,17 +203,4 @@ public class AppData extends Activity {
 		return distance;
 	}
 
-    /*
-    private void storeGlobalVarString(String varName, String value) {
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(varName, value);
-        editor.commit();
-    }
-    private void storeGlobalVarLong(String varName, long value) {
-    	SharedPreferences settings = getPreferences(0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putLong(varName, value);
-        editor.commit();
-    }
-	*/
 }
