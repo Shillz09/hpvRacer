@@ -8,16 +8,14 @@ public class LapsTable {
 	
   // Database table
   public static final Tables TABLE_LAPS = Tables.hpvLaps;
-  public static final String COLUMN_ID = "_id";
-  public static final String COLUMN_LAP_NUMBER = "lapNumber";
+  public static final String COLUMN_LAP_NUMBER = "_id";
   public static final String COLUMN_LAP_START_TIME = "startTime";
 
   // Database creation SQL statement
   private static final String DATABASE_CREATE = "create table " 
       + TABLE_LAPS
       + "(" 
-      + COLUMN_ID + " integer primary key autoincrement, " 
-      + COLUMN_LAP_NUMBER + " integer not null, " 
+      + COLUMN_LAP_NUMBER + " integer primary key, "  
       + COLUMN_LAP_START_TIME + " integer not null " 
       + ");";
 

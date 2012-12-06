@@ -27,13 +27,10 @@ public class RacesContentProvider extends ContentProvider {
   private static final String AUTHORITY = "edu.wvu.hpvracer.sqlite.contentProvider";
 
   private static final String BASE_PATH = "hpvRacer";
-  public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
-      + "/" + BASE_PATH);
+  public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 
-  public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-      + "/hpvRacer";
-  public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
-      + "/hpvRacer";
+  public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/hpvRacer";
+  public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/hpvRacer";
 
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
   static {
@@ -62,20 +59,21 @@ public class RacesContentProvider extends ContentProvider {
 
     int uriType = sURIMatcher.match(uri);
     switch (uriType) {
-    case RACES:
-      break;
-    case RACE_ID:
-      // Adding the ID to the original query
-      queryBuilder.appendWhere(RacesTable.COLUMN_ID + "="
-          + uri.getLastPathSegment());
-      break;
-    default:
-      throw new IllegalArgumentException("Unknown URI: " + uri);
+	    
+	    case RACES:
+	      break;
+	      
+	    case RACE_ID:
+	      // Adding the ID to the original query
+	      queryBuilder.appendWhere(RacesTable.COLUMN_READING_TIME + "=" + uri.getLastPathSegment());
+	      break;
+	    
+	    default:
+	      throw new IllegalArgumentException("Unknown URI: " + uri);
     }
 
     SQLiteDatabase db = database.getWritableDatabase();
-    Cursor cursor = queryBuilder.query(db, projection, selection,
-        selectionArgs, null, null, sortOrder);
+    Cursor cursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
     // Make sure that potential listeners are getting notified
     cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
@@ -117,11 +115,11 @@ public class RacesContentProvider extends ContentProvider {
       String id = uri.getLastPathSegment();
       if (TextUtils.isEmpty(selection)) {
         rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA.toString(),
-            RacesTable.COLUMN_ID + "=" + id, 
+            RacesTable.COLUMN_READING_TIME + "=" + id, 
             null);
       } else {
         rowsDeleted = sqlDB.delete(RacesTable.TABLE_RACE_DATA.toString(),
-            RacesTable.COLUMN_ID + "=" + id 
+            RacesTable.COLUMN_READING_TIME + "=" + id 
             + " and " + selection,
             selectionArgs);
       }
@@ -152,12 +150,12 @@ public class RacesContentProvider extends ContentProvider {
       if (TextUtils.isEmpty(selection)) {
         rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA.toString(), 
             values,
-            RacesTable.COLUMN_ID + "=" + id, 
+            RacesTable.COLUMN_READING_TIME + "=" + id, 
             null);
       } else {
         rowsUpdated = sqlDB.update(RacesTable.TABLE_RACE_DATA.toString(), 
             values,
-            RacesTable.COLUMN_ID + "=" + id 
+            RacesTable.COLUMN_READING_TIME + "=" + id 
             + " and " 
             + selection,
             selectionArgs);
@@ -174,7 +172,7 @@ public class RacesContentProvider extends ContentProvider {
     String[] available = { RacesTable.COLUMN_READING_TIME, RacesTable.COLUMN_KEY,
     		RacesTable.COLUMN_VALUE, RacesTable.COLUMN_RIDER_ID, RacesTable.COLUMN_RACE_ID,
     		RacesTable.COLUMN_RIDER_LAP, RacesTable.COLUMN_RACE_LAP, RacesTable.COLUMN_UPLOAD_STATUS,
-    		RacesTable.COLUMN_ID };
+    		RacesTable.COLUMN_READING_TIME };
     if (projection != null) {
       HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
       HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));

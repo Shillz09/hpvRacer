@@ -82,12 +82,14 @@
         
         <provider
             android:name="edu.wvu.hpvracer.sqlite.contentProvider.LapsContentProvider"
-            android:authorities="edu.wvu.hpvracer.sqlite.contentProvider" >
+            android:authorities="edu.wvu.hpvracer.sqlite.contentProvider"
+            android:exported="false" >
         </provider>
         
         <provider
             android:name="edu.wvu.hpvracer.sqlite.contentProvider.RacesContentProvider"
-            android:authorities="edu.wvu.hpvracer.sqlite.contentProvider" >
+            android:authorities="edu.wvu.hpvracer.sqlite.contentProvider"
+            android:exported="false" >
         </provider>
 
     </application>

@@ -93,6 +93,14 @@ public class RaceSelectorActivity extends FragmentActivity {
 	    	// store chosen race ID
 	    	AppData d = new AppData(getPreferences(0));
 	        d.RaceID(selectedRace.id);
+	        if (d.RiderLap() == 0) {
+	        	d.RiderLap(1);
+	        }
+	        if (d.RaceLap() == 0){
+	        	d.RaceLap(1);
+	        }
+	        
+	        //TODO if race == "none of these", upload ID to cloud with temp name, current dt and race type
 
 	        // set extras and start next activity
 	    	intent.putExtra(RACEID, selectedRace.id);

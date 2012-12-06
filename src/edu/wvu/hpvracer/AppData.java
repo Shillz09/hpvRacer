@@ -14,7 +14,18 @@ public class AppData extends Activity {
 	private static int ghostCadence;
 	private static SharedPreferences settings;
 	private boolean readOnly;
-	//= getPreferences(0);
+	public static long raceStartTime;
+	public static final double LAPLENGTH = 1.11847;  // estimated lap length in miles (1.8 km is ASME estimate)
+													//TODO: Make this configurable
+	// TO CALCULATE DISTANCE (See RecordSpeed(speed, unixtime) and DistanceEst())
+	public static double sumOfSpeeds = 0;
+	public static int countOfSpeedReadings = 0;
+	public static long lastReadingTime = 0;
+	public static double averageSpeedMPH = 0;
+	public double distance = 0;
+
+	
+	public static int averageSpeed = 0;
 	
 	public AppData() {
 		// empty constructor used to access static values -- can not init from SharedPreferences
@@ -168,6 +179,29 @@ public class AppData extends Activity {
     	Toast t = Toast.makeText(this, "Can not save data, " + d + ": AppData is in readOnly mode. Create using 'AppData(getPreferences(0))' to edit.", Toast.LENGTH_LONG);
 		t.show();
     }
+    
+    public double recordSpeed(double s, long t){
+    	sumOfSpeeds += s;
+    	countOfSpeedReadings++;
+    	lastReadingTime = t;
+    	return this.distanceEst();
+    }
+    
+	public double distanceEst() {
+		averageSpeedMPH = sumOfSpeeds/countOfSpeedReadings;
+		long elapsedHours = (raceStartTime - lastReadingTime)/(60*60);
+		distance = averageSpeedMPH * elapsedHours;
+		
+		// test lap count; uses integer division to disregard any remainder
+		int integerDistance = (int)distance;
+		int lapLength = (int)LAPLENGTH;
+		
+		if ( raceLapNumber != (integerDistance/lapLength) ) {
+			this.IncrementLap(true);
+		}
+		
+		return distance;
+	}
 
     /*
     private void storeGlobalVarString(String varName, String value) {

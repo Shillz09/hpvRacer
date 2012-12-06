@@ -64,7 +64,7 @@ public class LapsContentProvider extends ContentProvider {
 		  
 		case LAP_ID:
 		  // Adding the ID to the original query
-		  queryBuilder.appendWhere(LapsTable.COLUMN_ID + "=" + uri.getLastPathSegment());
+		  queryBuilder.appendWhere(LapsTable.COLUMN_LAP_NUMBER + "=" + uri.getLastPathSegment());
 		  break;
 		  
 		default:
@@ -122,9 +122,9 @@ public class LapsContentProvider extends ContentProvider {
 			  String id = uri.getLastPathSegment();
 			  
 			  if (TextUtils.isEmpty(selection)) {
-				rowsDeleted = sqlDB.delete(LapsTable.TABLE_LAPS.toString(), LapsTable.COLUMN_ID + "=" + id, null);
+				rowsDeleted = sqlDB.delete(LapsTable.TABLE_LAPS.toString(), LapsTable.COLUMN_LAP_NUMBER + "=" + id, null);
 			  } else {
-				  rowsDeleted = sqlDB.delete(LapsTable.TABLE_LAPS.toString(), LapsTable.COLUMN_ID + "=" + id + " and " + selection, selectionArgs);
+				  rowsDeleted = sqlDB.delete(LapsTable.TABLE_LAPS.toString(), LapsTable.COLUMN_LAP_NUMBER + "=" + id + " and " + selection, selectionArgs);
 			  }
 			  break;
 		
@@ -158,12 +158,12 @@ public class LapsContentProvider extends ContentProvider {
 		  if (TextUtils.isEmpty(selection)) {
 			rowsUpdated = sqlDB.update(LapsTable.TABLE_LAPS.toString(), 
 				values,
-				LapsTable.COLUMN_ID + "=" + id, 
+				LapsTable.COLUMN_LAP_NUMBER + "=" + id, 
 				null);
 		  } else {
 			rowsUpdated = sqlDB.update(LapsTable.TABLE_LAPS.toString(), 
 				values,
-				LapsTable.COLUMN_ID + "=" + id 
+				LapsTable.COLUMN_LAP_NUMBER + "=" + id 
 				+ " and " 
 				+ selection,
 				selectionArgs);
@@ -179,7 +179,7 @@ public class LapsContentProvider extends ContentProvider {
 
   private void checkColumns(String[] projection) {
 	String[] available = { LapsTable.COLUMN_LAP_NUMBER,
-		LapsTable.COLUMN_LAP_START_TIME, LapsTable.COLUMN_ID };
+		LapsTable.COLUMN_LAP_START_TIME };
 	
 	if (projection != null) {
 		
