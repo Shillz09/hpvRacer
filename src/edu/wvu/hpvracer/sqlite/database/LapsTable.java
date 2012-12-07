@@ -10,7 +10,8 @@ public class LapsTable {
       + SQLConstants.TABLE_LAPS
       + "(" 
       + SQLConstants.COLUMN_LAP_NUMBER + " integer primary key, "  
-      + SQLConstants.COLUMN_LAP_START_TIME + " integer not null " 
+      + SQLConstants.COLUMN_LAP_START_TIME + " integer not null, "
+      + SQLConstants.COLUMN_UPLOAD_STATUS + " integer not null"
       + ");";
 
   public static void onCreate(SQLiteDatabase database) {

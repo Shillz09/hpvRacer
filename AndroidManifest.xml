@@ -41,6 +41,7 @@
         <service android:name="edu.wvu.hpvracer.GCMIntentService" />
         <service android:name="net.neilgoodman.android.rest.RESTService" />
         <service android:name="edu.wvu.hpvracer.sqlite.contentProvider.QueryHelper" />
+        <service android:name="edu.wvu.hpvracer.RaceDataUploadManager" />
 
         <activity
             android:name="edu.wvu.hpvracer.MainActivity"

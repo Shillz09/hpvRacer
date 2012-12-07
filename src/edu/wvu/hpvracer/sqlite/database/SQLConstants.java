@@ -16,6 +16,7 @@ public class SQLConstants {
 	// Races Database table
 	public static final String RACES_DATABASE_NAME = "hpvRaceStatsDatabase.db";
 	public static final String TABLE_RACE_DATA = Tables.hpvRaceData.toString();
+	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_READING_TIME = "readingTime";
 	public static final String COLUMN_KEY = "key";
 	public static final String COLUMN_VALUE = "value";

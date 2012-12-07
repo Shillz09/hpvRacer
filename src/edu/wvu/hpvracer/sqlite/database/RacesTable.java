@@ -8,6 +8,7 @@ public class RacesTable {
   // Database creation SQL statement
   private static final String DATABASE_CREATE = "create table "
 	  + SQLConstants.TABLE_RACE_DATA + "(" 
+	  + SQLConstants.COLUMN_ID + " text not null, "
 	  + SQLConstants.COLUMN_KEY + " text not null, "
 	  + SQLConstants.COLUMN_RACE_ID + " integer not null, "
 	  + SQLConstants.COLUMN_RACE_LAP + " integer not null, "
