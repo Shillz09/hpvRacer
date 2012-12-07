@@ -12,6 +12,8 @@ public class SQLConstants {
 	public static final String INSERT = "insert";
 	public static final String UPDATE = "update";
 	public static final String DELETE = "delete";
+	public static final String UPLOAD_STATUS_LOCAL = "local";
+	
 	
 	// Races Database table
 	public static final String RACES_DATABASE_NAME = "hpvRaceStatsDatabase.db";

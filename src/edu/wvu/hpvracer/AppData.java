@@ -51,6 +51,9 @@ public class AppData extends Activity {
 		}
 	}
 	public int RiderID() {
+		if (riderID == -1) {
+			NewRider();
+		}
 		return riderID;
 	}
 	

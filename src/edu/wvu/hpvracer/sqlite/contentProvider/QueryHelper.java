@@ -37,16 +37,15 @@ public class QueryHelper extends IntentService {
 	public static final String TABLENAME = "tableName";
 	public static final String DBACTION = "dbAction";
 	public static final String SELECTFILTER = "selectWhere";
+	public static final String UPLOADKEY = "uploadKey";
 	
-	private final int uploadThreshold = 3;  //TODO: make this a configurable user setting
+	private final int uploadThreshold = 1;  //TODO: make this a configurable user setting
 	private static final String TAG = QueryHelper.class.getName();
 	private static int RaceDataPostCount; 
-	private static final String UPLOADKEY = "uploadKey";
-	
+
 	public QueryHelper() {
 		super(TAG);
-	}
-	
+	}	
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
@@ -116,7 +115,7 @@ public class QueryHelper extends IntentService {
 		ContentValues values = new ContentValues();
 	    values.put(SQLConstants.COLUMN_LAP_NUMBER, d.getInt(SQLConstants.COLUMN_LAP_NUMBER));
 	    values.put(SQLConstants.COLUMN_LAP_START_TIME, d.getLong(SQLConstants.COLUMN_LAP_START_TIME));
-	    values.put(SQLConstants.COLUMN_UPLOAD_STATUS, "local");
+	    values.put(SQLConstants.COLUMN_UPLOAD_STATUS, SQLConstants.UPLOAD_STATUS_LOCAL);
 		Uri uri = getContentResolver().insert(LapsContentProvider.LAPS_CONTENT_URI, values);
 		Log.i("QueryHelper:LapsInsert", uri.toString());
 	}
@@ -190,15 +189,17 @@ public class QueryHelper extends IntentService {
 	}
 	
 	private void RaceDataUpdate(Bundle d) { 
-		// REQUIRES "UPLOADKEY" = value in status that should be put into the table
-		//			"SELECTFILTER" = value to find; the matching records will be updated
+		/** Bundle REQUIRES 
+		 *  String "UPLOADKEY" bundle.putString(QueryHelper.UPLOADKEY, String) = value that should be put into the status (the upload key)
+		 *	String[] "SELECTFILTER" bundle.putString(QueryHelper.SELECTFILTER, string[]) = value to find; the matching records will be updated 
+		 */
 
 		ContentValues values = new ContentValues();
 	    values.put(SQLConstants.COLUMN_UPLOAD_STATUS, d.getString(UPLOADKEY));
 		String where = SQLConstants.COLUMN_UPLOAD_STATUS + " = ?";
-		String[] selectionArgs = new String[] { d.getString(SELECTFILTER) };
+		String[] parameters = new String[] { d.getString(SELECTFILTER) };
 		
-		int updateCount = getContentResolver().update(RacesContentProvider.RACE_CONTENT_URI, values, where, selectionArgs);
+		int updateCount = getContentResolver().update(RacesContentProvider.RACE_CONTENT_URI, values, where, parameters);
 		Log.i("QueryHelper:LapsUpdate", ""+updateCount);
 	}
 	

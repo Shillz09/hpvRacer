@@ -1,5 +1,7 @@
 package edu.wvu.hpvracer;
 
+import java.util.Random;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +11,6 @@ import edu.wvu.hpvracer.sqlite.contentProvider.QueryHelper;
 import edu.wvu.hpvracer.sqlite.database.SQLConstants;
 
 public class EnduranceRaceActivity extends Activity {
-	private static int lapTest;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +37,14 @@ public class EnduranceRaceActivity extends Activity {
     
     protected void testSqlite() {
     	
-    	long unixTime = System.currentTimeMillis() / 1000L;
+    	long unixTime = Utilities.unixtime();
     	Bundle e = new Bundle();
     	
     	// LAPS TABLE
+    	Random myRand = new Random();    	
     	e.putString(QueryHelper.DBACTION, SQLConstants.DatabaseActions.insert.toString());
     	e.putString(QueryHelper.TABLENAME, SQLConstants.TABLE_LAPS);
-    	e.putInt(SQLConstants.COLUMN_LAP_NUMBER , ++lapTest);
+    	e.putInt(SQLConstants.COLUMN_LAP_NUMBER , myRand.nextInt());
     	e.putLong(SQLConstants.COLUMN_LAP_START_TIME, unixTime);
     	
     	Intent lapsUpdateIntent = new Intent(this, QueryHelper.class);

@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import edu.wvu.hpvracer.sqlite.database.RacesDatabaseHelper;
 import edu.wvu.hpvracer.sqlite.database.SQLConstants;
 
@@ -19,7 +20,7 @@ public class RacesContentProvider extends ContentProvider {
   // database
   private RacesDatabaseHelper database;
 
-  // Used for the UriMacher
+  // Used for the UriMatcher
   private static final int RACES = 10;
   private static final int RACE_ID = 20;
 
@@ -60,7 +61,7 @@ public class RacesContentProvider extends ContentProvider {
 	      
 	    case RACE_ID:
 	      // Adding the ID to the original query
-	      queryBuilder.appendWhere(SQLConstants.COLUMN_READING_TIME + "=" + uri.getLastPathSegment());
+	      queryBuilder.appendWhere(SQLConstants.COLUMN_ID + "=" + uri.getLastPathSegment());
 	      break;
 	    
 	    default:
@@ -71,7 +72,9 @@ public class RacesContentProvider extends ContentProvider {
     Cursor cursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
     // Make sure that potential listeners are getting notified
     cursor.setNotificationUri(getContext().getContentResolver(), uri);
-
+    
+    Log.d("RacesContentProvider", queryBuilder.buildQuery(projection, selection, null, null, null, null));
+    
     return cursor;
   }
 
@@ -127,8 +130,7 @@ public class RacesContentProvider extends ContentProvider {
   }
 
   @Override
-  public int update(Uri uri, ContentValues values, String selection,
-      String[] selectionArgs) {
+  public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
     int uriType = sURIMatcher.match(uri);
     SQLiteDatabase sqlDB = database.getWritableDatabase();
