@@ -1,9 +1,14 @@
 package edu.wvu.hpvracer;
 
+import net.neilgoodman.android.rest.RESTService;
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.util.Log;
 import edu.wvu.hpvracer.sqlite.contentProvider.QueryHelper;
 import edu.wvu.hpvracer.sqlite.contentProvider.RacesContentProvider;
@@ -14,6 +19,19 @@ public class RaceDataUploadManager extends IntentService {
 	private static final String TAG = RaceDataUploadManager.class.getName();
 	private String uploadKey = Utilities.uploadKey();
 	private Cursor c;
+    private ResultReceiver mReceiver = new ResultReceiver(new Handler()) {
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            if (resultData != null && resultData.containsKey(RESTService.REST_RESULT)) {
+                onRESTResult(resultCode, resultData.getString(RESTService.REST_RESULT));
+            }
+            else {
+                onRESTResult(resultCode, null);
+            }
+        }
+        
+    };
 	
 	public RaceDataUploadManager() {
 		super(TAG);
@@ -33,19 +51,16 @@ public class RaceDataUploadManager extends IntentService {
 			String jsonObject = JsonParser();
 			Log.i("RaceDataUploadManager", jsonObject);
 			
-			//TODO: start REST service, sending JSON with uploadKey for return
-			
-			
-			//TODO: set up listener to get result from REST process, including upload key
-			
-			
-			//TODO: upon REST success result, delete local records matching upload key
-			
-			
-			//TODO: upon REST success result, start GCM to notify tablet of new data
-			
-			
-			//TODO: upon REST fail result, set status of data back to 'local' where = uploadKey
+			intent = new Intent(this, RESTService.class);
+	        intent.setData(Uri.parse("http://50weasels.com/HCI/addRaceData.php"));
+	            
+	        Bundle params = new Bundle();
+	        params.putString("json", jsonObject);
+	            
+	        intent.putExtra(RESTService.EXTRA_PARAMS, params);
+	        intent.putExtra(RESTService.EXTRA_RESULT_RECEIVER, mReceiver);
+	           
+	        startService(intent);
 			
 		}
 	}
@@ -102,6 +117,25 @@ public class RaceDataUploadManager extends IntentService {
 		}
 		c.close();
 		return json + jsonEnd;
+	}
+	
+	public void onRESTResult(int code, String result) {
+		
+		Log.i("RaceDataUploadManager.onRESTResult", ""+code);
+		Log.i("RaceDataUploadManager.onRESTResult", result);
+
+		if (code == 200 && result != null) {
+			
+			//TODO: upon REST success result, delete local records matching upload key
+			
+			
+			//TODO: upon REST success result, start GCM to notify tablet of new data
+
+		} else {
+			
+			//TODO: upon REST fail result, set status of data back to 'local' where = uploadKey
+			
+        }
 	}
 
 }
