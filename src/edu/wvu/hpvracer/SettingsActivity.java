@@ -31,4 +31,14 @@ public class SettingsActivity extends Activity {
     	startActivity(intent);
 	}
     
+    public void cloudRaceData(View view) {
+    	Intent intent = new Intent(this, CloudRaceData.class);
+    	startActivity(intent);
+    }
+    
+    public void aboutUs(View view) {
+    	Intent intent = new Intent(this, AboutUs.class);
+    	startActivity(intent);
+    }
+    
 }

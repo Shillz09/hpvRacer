@@ -1,34 +1,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/settings_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="@string/title_activity_settings"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal" />
+    
     <Button
-        android:id="@+id/button_dragRace"
+        android:id="@+id/button_cloudRaceData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="115dp"
-        android:onClick="clearSettings"
-        android:text="@string/button_clearSettings" />
+        android:layout_below="@id/settings_title"
+        android:onClick="cloudRaceData"
+        android:text="@string/button_getCloudData" />
 
+    <TextView
+        android:id="@+id/settings_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/subTitle_current_settings"
+        android:textSize="20sp"
+        android:layout_marginTop="20sp"
+        android:layout_below="@id/button_cloudRaceData"
+        android:gravity="center_horizontal"
+        android:textStyle="bold" />
+    
     <TextView
         android:id="@+id/currentSettings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:textSize="15sp" />
+        android:layout_below="@id/settings_subtitle"
+        android:textSize="15sp"
+        android:layout_marginLeft="20sp" />
 
-    <TextView
-        android:id="@+id/settings_title"
+    <Button
+        android:id="@+id/button_clear_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5sp"
+        android:onClick="clearSettings"
+        android:text="@string/button_clearSettings"
+        android:layout_below="@id/settings_subtitle" />
+    
+    <Button
+        android:id="@+id/button_aboutUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:text="@string/title_activity_settings"
-        android:textSize="20sp" />
-
+        android:onClick="aboutUs"
+        android:text="@string/button_aboutUs"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

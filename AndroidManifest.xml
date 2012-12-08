@@ -80,8 +80,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.wvu.hpvracer.MainActivity" />
         </activity>
-        
-        
+
         <provider
             android:name="edu.wvu.hpvracer.sqlite.contentProvider.RacesContentProvider"
             android:authorities="edu.wvu.hpvracer.sqlite.RacesContentProvider"
@@ -93,7 +92,14 @@
             android:exported="false" >
         </provider>
 
-
+        <activity
+            android:name="edu.wvu.hpvracer.CloudRaceData"
+            android:label="@string/title_activity_cloud_race_data2" >
+        </activity>
+        <activity
+            android:name="edu.wvu.hpvracer.AboutUs"
+            android:label="@string/title_activity_about_us" >
+        </activity>
     </application>
 
 </manifest>
