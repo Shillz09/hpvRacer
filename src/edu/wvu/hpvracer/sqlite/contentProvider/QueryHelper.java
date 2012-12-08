@@ -39,7 +39,7 @@ public class QueryHelper extends IntentService {
 	public static final String SELECTFILTER = "selectWhere";
 	public static final String UPLOADKEY = "uploadKey";
 	
-	private final int uploadThreshold = 3;  //TODO: make this a configurable user setting
+	private final int uploadThreshold = 1;  //TODO: make this a configurable user setting
 	private static final String TAG = QueryHelper.class.getName();
 	private static int RaceDataPostCount; 
 
