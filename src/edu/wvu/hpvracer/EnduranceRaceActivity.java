@@ -27,6 +27,12 @@ public class EnduranceRaceActivity extends Activity {
         }
         
          int raceID = intent.getIntExtra(RaceSelectorActivity.RACEID, 0);
+         AppData raceData = new AppData(getPreferences(0));
+         raceData.RaceID(raceID);
+         if (raceData.RaceLap() == 0) {
+        	 raceData.RaceLap(1);
+        	 raceData.RiderLap(1);
+         }
          
         ((TextView)findViewById(R.id.title)).setText(raceName + " -- " + raceID);
         ((TextView)findViewById(R.id.speed_display)).setText(getString(R.string.speed) + " " + getString(R.string.speed_units));
@@ -44,14 +50,14 @@ public class EnduranceRaceActivity extends Activity {
     	Random myRand = new Random();    	
     	e.putString(QueryHelper.DBACTION, SQLConstants.DatabaseActions.insert.toString());
     	e.putString(QueryHelper.TABLENAME, SQLConstants.TABLE_LAPS);
-    	e.putInt(SQLConstants.COLUMN_LAP_NUMBER , myRand.nextInt());
+    	e.putInt(SQLConstants.COLUMN_LAP_NUMBER , myRand.nextInt(255));
     	e.putLong(SQLConstants.COLUMN_LAP_START_TIME, unixTime);
     	
     	Intent lapsUpdateIntent = new Intent(this, QueryHelper.class);
     	lapsUpdateIntent.putExtras(e);
     	startService(lapsUpdateIntent);
     	
-    	 //race data table (endurance or drag)
+    	 // RACE DATA TABLE (endurance or drag)
     	 e.clear();
     	 e.putString(QueryHelper.DBACTION, SQLConstants.DatabaseActions.insert.toString());
     	 e.putString(QueryHelper.TABLENAME,  SQLConstants.TABLE_RACE_DATA);

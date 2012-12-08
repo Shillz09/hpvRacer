@@ -26,6 +26,7 @@ import edu.wvu.hpvracer.ListObject;
 public class RaceSearchResponderFragment extends RESTResponderFragment {
 	
     private static String TAG = RaceSearchResponderFragment.class.getName();
+    private boolean noNetwork = false;
     
     // We cache our stored races here so that we can return right away
     // on multiple calls to setRaces() during the Activity lifecycle events (such
@@ -36,8 +37,8 @@ public class RaceSearchResponderFragment extends RESTResponderFragment {
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         
+    	super.onActivityCreated(savedInstanceState);
         // This gets called each time our Activity has finished creating itself.
         setRaces();
     }
@@ -45,6 +46,20 @@ public class RaceSearchResponderFragment extends RESTResponderFragment {
     private void setRaces() {
     	
         final RaceSelectorActivity activity = (RaceSelectorActivity) getActivity();
+        
+        // Add a listener for clicks on the list (rcm)
+        ListFragment myList = activity.getListFragment();
+        final ListView lv = myList.getListView();
+        lv.setOnItemClickListener(new OnItemClickListener() {
+        	
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            	
+                ListObject selectedFromList =(ListObject) (lv.getItemAtPosition(position));
+                Log.i("debug", selectedFromList.title);
+                activity.StartRace(selectedFromList);
+            }
+
+        });
         
         if (mRaces == null && activity != null) {
             // This is where we make our REST call to the service. We also pass in our ResultReceiver
@@ -68,31 +83,20 @@ public class RaceSearchResponderFragment extends RESTResponderFragment {
             
             // Here we send our Intent to our RESTService.
             activity.startService(intent);
-        }
-        else if (activity != null) {
+        
+        } else if ((activity != null) || (noNetwork == true)) {
+        	
             // Here we check to see if our activity is null or not.
             // We only want to update our views if our activity exists.
             
             ArrayAdapter<ListObject> adapter = activity.getArrayAdapter();
             
             // Load our list adapter with our Races.
-            adapter.clear();
+            // adapter.clear();
             for (ListObject race : mRaces) {
                 adapter.add(race);
             }
             
-            // Add a listener for clicks on the list (rcm)
-            ListFragment myList = activity.getListFragment();
-            final ListView lv = myList.getListView();
-            lv.setOnItemClickListener(new OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ListObject selectedFromList =(ListObject) (lv.getItemAtPosition(position));
-                    Log.i("debug", selectedFromList.title);
-                    activity.StartRace(selectedFromList);
-                }
-
-            });
-
         }
     }
     
@@ -110,14 +114,17 @@ public class RaceSearchResponderFragment extends RESTResponderFragment {
             // JSON utilities on Android.
             mRaces = getRacesFromJson(result);
             ListObject l = new ListObject();
-            l.id = 0;
+            
+            l.id = -1;
             l.title = "None of these";
             mRaces.add(l);
+
             setRaces();
         }
         else {
             Activity activity = getActivity();
             if (activity != null) {
+            	noNetwork = true;
                 Toast.makeText(activity, "Failed to load Race data. Check your internet settings.", Toast.LENGTH_SHORT).show();
             }
         }

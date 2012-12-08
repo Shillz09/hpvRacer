@@ -39,7 +39,7 @@ public class QueryHelper extends IntentService {
 	public static final String SELECTFILTER = "selectWhere";
 	public static final String UPLOADKEY = "uploadKey";
 	
-	private final int uploadThreshold = 1;  //TODO: make this a configurable user setting
+	private final int uploadThreshold = 3;  //TODO: make this a configurable user setting
 	private static final String TAG = QueryHelper.class.getName();
 	private static int RaceDataPostCount; 
 
@@ -159,11 +159,9 @@ public class QueryHelper extends IntentService {
 	private void RaceDataInsert(Bundle i) {
 		
 		AppData d = new AppData();
-
+		String raceIdValue = i.getString(SQLConstants.COLUMN_KEY) + ":" + i.getLong(SQLConstants.COLUMN_READING_TIME); 
 		ContentValues values = new ContentValues();
 		
-		//raceIdValue = key + : + unixtime, e.g. SPEED:123894725
-		String raceIdValue = i.getString(SQLConstants.COLUMN_KEY) + ":" + i.getLong(SQLConstants.COLUMN_READING_TIME); 
 		values.put(SQLConstants.COLUMN_ID, raceIdValue);
 		values.put(SQLConstants.COLUMN_VALUE, i.getInt(SQLConstants.COLUMN_VALUE));
 	    values.put(SQLConstants.COLUMN_KEY, i.getString(SQLConstants.COLUMN_KEY.toString()));
@@ -173,7 +171,7 @@ public class QueryHelper extends IntentService {
 	    values.put(SQLConstants.COLUMN_RACE_LAP, d.RaceLap() );
 	    values.put(SQLConstants.COLUMN_RIDER_ID, d.RiderID() );
 	    values.put(SQLConstants.COLUMN_RIDER_LAP, d.RiderLap() );
-	    values.put(SQLConstants.COLUMN_UPLOAD_STATUS, "local");
+	    values.put(SQLConstants.COLUMN_UPLOAD_STATUS, SQLConstants.UPLOAD_STATUS_LOCAL);
 	    
 		Uri uri = getContentResolver().insert(RacesContentProvider.RACE_CONTENT_URI, values);
 		Log.i("QueryHelper:RacesURI", uri.toString());

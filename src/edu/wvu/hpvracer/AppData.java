@@ -31,15 +31,20 @@ public class AppData extends Activity {
 		// empty constructor used to access static values -- can not init from SharedPreferences
 		readOnly = true;
 	}
+	
 	public AppData(SharedPreferences p) {
+		readOnly = false;
+		init(p);
+	}
+	
+	public static void init(SharedPreferences p) {
 		settings = p;
 		riderID = settings.getInt(Constants.RIDERID, -1);
 		raceID = settings.getInt(Constants.RACEID, -1);
 		raceLapNumber = settings.getInt(Constants.RACELAP, 0);
 		riderLapNumber = settings.getInt(Constants.RIDERLAP, 0);
 		ghostCadence = settings.getInt(Constants.GHOSTCADENCE, 80);
-		ghostSpeed = settings.getInt(Constants.GHOSTSPEED, 35);
-		readOnly = false;
+		ghostSpeed = settings.getInt(Constants.GHOSTSPEED, 35);		
 	}
 	
 	public void RiderID(int i) {

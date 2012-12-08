@@ -16,6 +16,9 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        AppData.init(getPreferences(0));
+        
         setContentView(R.layout.activity_main);
         
         //TODO: implement this for the tablet MainActivity; not needed on phone

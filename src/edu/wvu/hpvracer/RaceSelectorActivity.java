@@ -33,6 +33,12 @@ public class RaceSelectorActivity extends FragmentActivity {
         
         mAdapter = new ArrayAdapter<ListObject>(this, R.layout.item_label_list);
         
+        // set default race in case of network failure
+        ListObject l = new ListObject();
+        l.id = 0;
+        l.title = "New Race";
+        mAdapter.add(l);
+
         FragmentManager     fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         
@@ -40,6 +46,7 @@ public class RaceSelectorActivity extends FragmentActivity {
         // we have to use FragmentActivity. So, we use ListFragment
         // to get the same functionality as ListActivity.
         list = new ListFragment();
+
         ft.add(R.id.race_list, list);
         
         // Let's set our list adapter to a simple ArrayAdapter.
@@ -60,7 +67,9 @@ public class RaceSelectorActivity extends FragmentActivity {
         // won't get added to your FragmentManager. Forgetting to call ft.commit()
         // is a really common mistake when starting out with Fragments.
         ft.commit();
+        
     }
+    
 
     public ArrayAdapter<ListObject> getArrayAdapter() {
         return mAdapter;
