@@ -81,7 +81,7 @@ public final class R {
         public static final int subTitle_current_settings=0x7f05000f;
         public static final int time=0x7f050012;
         public static final int title_activity_about_us=0x7f050016;
-        public static final int title_activity_cloud_race_data2=0x7f050015;
+        public static final int title_activity_cloud_race_data=0x7f050015;
         public static final int title_activity_drag_race=0x7f05000b;
         public static final int title_activity_endurance_race=0x7f05000d;
         public static final int title_activity_main=0x7f05000a;

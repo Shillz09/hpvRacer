@@ -94,7 +94,7 @@
 
         <activity
             android:name="edu.wvu.hpvracer.CloudRaceData"
-            android:label="@string/title_activity_cloud_race_data2" >
+            android:label="@string/title_activity_cloud_race_data" >
         </activity>
         <activity
             android:name="edu.wvu.hpvracer.AboutUs"

@@ -22,7 +22,7 @@
     <string name="time">--:--</string>
     <string name="speed_units">mph</string>
     <string name="cadence_units">rpm</string>
-    <string name="title_activity_cloud_race_data2">CloudRaceData2</string>
-    <string name="title_activity_about_us">AboutUs</string>
+    <string name="title_activity_cloud_race_data">Race Data from Cloud Storage</string>
+    <string name="title_activity_about_us">About Us</string>
 
 </resources>
