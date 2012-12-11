@@ -35,7 +35,7 @@ public class RaceSelectorActivity extends FragmentActivity {
         
         // set default race in case of network failure
         ListObject l = new ListObject();
-        l.id = 0;
+        l.id = Constants.myRand.nextInt();
         l.title = "New Race";
         mAdapter.add(l);
 

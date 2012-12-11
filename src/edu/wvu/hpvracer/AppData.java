@@ -210,5 +210,15 @@ public class AppData extends Activity {
 		
 		return distance;
 	}
+	
+	@Override
+	public String toString() {
+		String s;
+		s = "riderID="+ riderID + "; raceID=" + raceID + "; raceLapNumber=" + raceLapNumber + 
+				"; riderLapNumber=" + riderLapNumber + "; ghostSpeed=" + ghostSpeed + 
+				"; ghostCadence=" + ghostCadence + "; readOnly=" + readOnly + 
+				"; raceStartTime=" + raceStartTime + "; distance=" + distance;
+		return s;
+	}
 
 }

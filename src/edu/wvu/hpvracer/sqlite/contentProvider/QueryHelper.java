@@ -159,9 +159,10 @@ public class QueryHelper extends IntentService {
 	private void RaceDataInsert(Bundle i) {
 		
 		AppData d = new AppData();
+		Log.i("QueryHelper:RaceDataInsert AppData", d.toString());
 		String raceIdValue = i.getString(SQLConstants.COLUMN_KEY) + ":" + i.getLong(SQLConstants.COLUMN_READING_TIME); 
 		ContentValues values = new ContentValues();
-		
+	    
 		values.put(SQLConstants.COLUMN_ID, raceIdValue);
 		values.put(SQLConstants.COLUMN_VALUE, i.getInt(SQLConstants.COLUMN_VALUE));
 	    values.put(SQLConstants.COLUMN_KEY, i.getString(SQLConstants.COLUMN_KEY.toString()));
@@ -184,6 +185,7 @@ public class QueryHelper extends IntentService {
 	    	startService(UploadRaceData);
 			
 		}
+
 	}
 	
 	private void RaceDataUpdate(Bundle d) { 

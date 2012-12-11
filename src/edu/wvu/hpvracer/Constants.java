@@ -1,5 +1,7 @@
 package edu.wvu.hpvracer;
 
+import java.util.Random;
+
 public class Constants {
 
 	/**
@@ -22,6 +24,8 @@ public class Constants {
 	
 	// USED IN GOOGLE CLOUD MESSAGING
 	public static final String SENDER_ID = "678175558305";
+	
+	public static Random myRand = new Random();
 
 
 }

@@ -20,8 +20,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import edu.wvu.hpvracer.RaceSelectorActivity;
 import edu.wvu.hpvracer.ListObject;
+import edu.wvu.hpvracer.RaceSelectorActivity;
+import edu.wvu.hpvracer.Constants;
 
 public class RaceSearchResponderFragment extends RESTResponderFragment {
 	
@@ -115,7 +116,7 @@ public class RaceSearchResponderFragment extends RESTResponderFragment {
             mRaces = getRacesFromJson(result);
             ListObject l = new ListObject();
             
-            l.id = -1;
+            l.id = Constants.myRand.nextInt( Integer.MAX_VALUE ) + 1;
             l.title = "None of these";
             mRaces.add(l);
 
