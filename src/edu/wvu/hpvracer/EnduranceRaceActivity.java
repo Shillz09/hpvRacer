@@ -28,7 +28,7 @@ public class EnduranceRaceActivity extends Activity {
          int raceID = intent.getIntExtra(RaceSelectorActivity.RACEID, 0);
          AppData raceData = new AppData(getPreferences(0));
          raceData.RaceID(raceID);
-         if (raceData.RaceLap() == 0) {
+         if (AppData.RaceLap() == 0) {
         	 raceData.RaceLap(1);
         	 raceData.RiderLap(1);
         	 raceData.NewRider();

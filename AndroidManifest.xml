@@ -100,6 +100,10 @@
             android:name="edu.wvu.hpvracer.AboutUs"
             android:label="@string/title_activity_about_us" >
         </activity>
+        <activity
+            android:name="edu.wvu.hpvracer.LocalRaceDataActivity"
+            android:label="@string/title_activity_local_race_data" >
+        </activity>
     </application>
 
 </manifest>

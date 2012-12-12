@@ -102,10 +102,10 @@ public class RaceSelectorActivity extends FragmentActivity {
 	    	// store chosen race ID
 	    	AppData d = new AppData(getPreferences(0));
 	        d.RaceID(selectedRace.id);
-	        if (d.RiderLap() == 0) {
+	        if (AppData.RiderLap() == 0) {
 	        	d.RiderLap(1);
 	        }
-	        if (d.RaceLap() == 0){
+	        if (AppData.RaceLap() == 0){
 	        	d.RaceLap(1);
 	        }
 	        

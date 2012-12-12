@@ -21,6 +21,7 @@ public class Constants {
 	public static final String GCMREGID = "GoogleCloudMessagingDeviceRegistrationId";
 	public static final String GHOSTSPEED = "ghostSpeed";
 	public static final String GHOSTCADENCE = "ghostCadence";
+	public static final String LAPLENGTH = "lapLength";
 	
 	// USED IN GOOGLE CLOUD MESSAGING
 	public static final String SENDER_ID = "678175558305";

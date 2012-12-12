@@ -15,8 +15,7 @@ public class AppData extends Activity {
 	private static SharedPreferences settings;
 	private boolean readOnly;
 	public static long raceStartTime;
-	public static final double LAPLENGTH = 1.11847;  // estimated lap length in miles (1.8 km is ASME estimate)
-													//TODO: Make this configurable
+	private static float lapLength;
 	
 	// TO CALCULATE DISTANCE (See RecordSpeed(speed, unixtime) and DistanceEst())
 	public static double sumOfSpeeds;
@@ -39,12 +38,14 @@ public class AppData extends Activity {
 	
 	public static void init(SharedPreferences p) {
 		settings = p;
-		riderID = settings.getInt(Constants.RIDERID, -1);
+		riderID = settings.getInt(Constants.RIDERID, 1);
 		raceID = settings.getInt(Constants.RACEID, -1);
 		raceLapNumber = settings.getInt(Constants.RACELAP, 0);
 		riderLapNumber = settings.getInt(Constants.RIDERLAP, 0);
 		ghostCadence = settings.getInt(Constants.GHOSTCADENCE, 80);
-		ghostSpeed = settings.getInt(Constants.GHOSTSPEED, 35);		
+		ghostSpeed = settings.getInt(Constants.GHOSTSPEED, 35);	
+		lapLength = settings.getFloat(Constants.LAPLENGTH, (float) 1.11847);
+			// estimated lap length, in miles (1.8 KM is ASME estimate)
 	}
 	
 	public void RiderID(int i) {
@@ -55,10 +56,8 @@ public class AppData extends Activity {
 			MakeToast("Rider ID");
 		}
 	}
-	public int RiderID() {
-		if (riderID == -1) {
-			NewRider();
-		}
+	public static int RiderID() {
+
 		return riderID;
 	}
 	
@@ -70,7 +69,7 @@ public class AppData extends Activity {
 			MakeToast("Race ID");
 		}
 	}
-	public int RaceID() {
+	public static int RaceID() {
 		return raceID;
 	}
 	
@@ -82,7 +81,7 @@ public class AppData extends Activity {
 			MakeToast("Race lap");
 		}
 	}
-	public int RaceLap() {
+	public static int RaceLap() {
 		return raceLapNumber;
 	}
 	
@@ -94,7 +93,7 @@ public class AppData extends Activity {
 			MakeToast("Rider Lap");
 		}
 	}
-	public int RiderLap() {
+	public static int RiderLap() {
 		return riderLapNumber;
 	}
 	
@@ -106,7 +105,7 @@ public class AppData extends Activity {
 			MakeToast("Ghost Cadence");
 		}
 	}
-	public int GhostCadence() {
+	public static int GhostCadence() {
 		return ghostCadence;
 	}
 	
@@ -118,9 +117,21 @@ public class AppData extends Activity {
 			MakeToast("Ghost Speed");
 		}
 	}
-	public int GhostSpeed() {
+	public static int GhostSpeed() {
 		return ghostSpeed;
 	}
+	
+	public void LapLength(float i){
+		if (!readOnly) {
+			lapLength = i;
+			storeGlobalVarFloat(Constants.LAPLENGTH, i);
+		} else {
+			MakeToast("Lap Length");
+		}
+	}
+    public static float LapLength(){
+    	return lapLength;
+    }
     
     public void IncrementLap(boolean sameRider){
     	if (!readOnly) {
@@ -182,6 +193,11 @@ public class AppData extends Activity {
         editor.putInt(varName, value);
         editor.commit();
     }
+    private void storeGlobalVarFloat(String varName, float value) {
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putFloat(varName, value);
+        editor.commit();
+    }
     
     private void MakeToast(String d) {
     	Toast t = Toast.makeText(this, "Can not save data, " + d + ": AppData is in readOnly mode. Create using 'AppData(getPreferences(0))' to edit.", Toast.LENGTH_LONG);
@@ -202,9 +218,9 @@ public class AppData extends Activity {
 		
 		// test lap count; uses integer division to disregard any remainder
 		int integerDistance = (int)distance;
-		int lapLength = (int)LAPLENGTH;
+		int integerLapLength = (int)lapLength;
 		
-		if ( raceLapNumber != (integerDistance/lapLength) ) {
+		if ( raceLapNumber != (integerDistance/integerLapLength) ) {
 			this.IncrementLap(true);
 		}
 		

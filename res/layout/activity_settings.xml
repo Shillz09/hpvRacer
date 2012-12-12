@@ -4,60 +4,135 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <!-- Page title "SETTINGS" -->
     <TextView
         android:id="@+id/settings_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/title_activity_settings"
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center_horizontal" />
     
+    <!-- button: cloud data -->
     <Button
         android:id="@+id/button_cloudRaceData"
+        android:layout_below="@id/settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/settings_title"
         android:onClick="cloudRaceData"
         android:text="@string/button_getCloudData" />
 
+    <!-- HR -->
+    <TextView
+        android:id="@+id/horizontalRule1"
+        android:layout_below="@id/button_cloudRaceData"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#CCC"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+        
+    <!-- title: rider & race settings -->
     <TextView
         android:id="@+id/settings_subtitle"
+        android:layout_below="@id/horizontalRule1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/subTitle_current_settings"
         android:textSize="20sp"
         android:layout_marginTop="20sp"
-        android:layout_below="@id/button_cloudRaceData"
-        android:gravity="center_horizontal"
         android:textStyle="bold" />
     
+    <!-- list of current app data values -->
     <TextView
         android:id="@+id/currentSettings"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_below="@id/settings_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textSize="15sp"
         android:layout_marginLeft="20sp" />
 
+    <!-- button: clear rider/race settings -->
     <Button
         android:id="@+id/button_clear_settings"
+        android:layout_below="@id/currentSettings"
+        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:textSize="15sp"
         android:layout_marginRight="5sp"
         android:onClick="clearSettings"
-        android:text="@string/button_clearSettings"
-        android:layout_below="@id/settings_subtitle" />
+        android:text="@string/button_clearSettings" />
     
-    <Button
-        android:id="@+id/button_aboutUs"
+    <!-- <HR> -->
+	<TextView
+        android:id="@+id/horizontalRule2"
+        android:layout_below="@id/button_clear_settings"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#CCC"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+	
+	<!-- subtitle: lap length -->   
+    <TextView
+        android:id="@+id/lapLength_subtitle"
+        android:layout_below="@id/horizontalRule2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/subTitle_lap_length"
+        android:textSize="20sp"
+        android:layout_marginTop="20sp"
+        android:textStyle="bold" />
+    
+    <!-- Current lap length -->
+    <TextView
+        android:id="@+id/currentLapLength"
+        android:layout_below="@id/lapLength_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:layout_marginLeft="20sp" />
+        
+    <!-- Lap length input box -->
+    <EditText android:id="@+id/editLapLength"
+        android:layout_below="@id/currentLapLength"
+        android:layout_marginLeft="20sp"
+        android:inputType="numberDecimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_message" />
+    
+    <!-- button: Update lap length -->
+    <Button
+        android:id="@+id/button_updateLapLength"
+        android:layout_below="@id/currentLapLength"
+        android:layout_toRightOf="@id/editLapLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:onClick="saveLapLength"
+        android:text="@string/button_updateLapLength" />
+    
+    <!-- <HR> -->
+	<TextView
+        android:id="@+id/horizontalRule3"
+        android:layout_below="@id/button_updateLapLength"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#CCC"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+    
+    <!-- button: about us -->
+    <Button
+        android:id="@+id/button_aboutUs"
+        android:layout_below="@id/horizontalRule3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="aboutUs"
-        android:text="@string/button_aboutUs"
-        android:layout_alignParentBottom="true" />
+        android:text="@string/button_aboutUs" />
 </RelativeLayout>
