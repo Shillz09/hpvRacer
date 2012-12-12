@@ -40,6 +40,15 @@ public class RacesContentProvider extends ContentProvider {
     return false;
   }
 
+  public Cursor rawQuery(String q){
+	  SQLiteDatabase db = database.getWritableDatabase();
+	  Cursor cursor = db.rawQuery(q, null);
+	    
+	  Log.d("RacesContentProvider", "rawQuery executed");
+	    
+	  return cursor;
+  }
+
   @Override
   public Cursor query(Uri uri, String[] projection, String selection,
       String[] selectionArgs, String sortOrder) {

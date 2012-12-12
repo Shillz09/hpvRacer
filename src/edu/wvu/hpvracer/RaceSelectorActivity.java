@@ -2,6 +2,8 @@ package edu.wvu.hpvracer;
 
 import net.neilgoodman.android.rest.RaceSearchResponderFragment;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +11,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import edu.wvu.hpvracer.sqlite.contentProvider.RacesContentProvider;
+import edu.wvu.hpvracer.sqlite.database.RacesDatabaseHelper;
+import edu.wvu.hpvracer.sqlite.database.SQLConstants;
 
 public class RaceSelectorActivity extends FragmentActivity {
 	public final static String RACETITLE = "edu.wvu.hpvracer.RACETITLE";
@@ -109,7 +114,21 @@ public class RaceSelectorActivity extends FragmentActivity {
 	        	d.RaceLap(1);
 	        }
 	        
-	        //TODO if race == "none of these", upload ID to cloud with temp name, current dt and race type
+	        RacesDatabaseHelper database = new RacesDatabaseHelper(getBaseContext());
+	        SQLiteDatabase db = database.getWritableDatabase();
+	        String query = "SELECT MIN(" + SQLConstants.COLUMN_RACE_ID + ") as MinID FROM " + SQLConstants.TABLE_RACE_DATA;
+	        Cursor c = db.rawQuery(query, null);
+	        c.moveToFirst();
+	        
+	        int minRaceID = 0;
+	        String minIntS = c.getString(c.getColumnIndex("MinID"));
+	        if(minIntS != null && !minIntS.isEmpty()) {
+	        	minRaceID = Integer.parseInt(minIntS);	
+	        }
+	        
+	        c.close();
+	        db.close();
+			selectedRace.id = minRaceID - 1;
 
 	        // set extras and start next activity
 	    	intent.putExtra(RACEID, selectedRace.id);

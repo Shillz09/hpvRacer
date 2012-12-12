@@ -122,7 +122,6 @@ public class RaceDataUploadManager extends IntentService {
 		String[] parameters = { uploadKey };
 		
 		c = getContentResolver().query(RacesContentProvider.RACE_CONTENT_URI, projection, selection, parameters, null);
-		
 		return c;
 	}
 	
