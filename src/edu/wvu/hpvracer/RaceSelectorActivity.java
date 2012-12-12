@@ -136,5 +136,4 @@ public class RaceSelectorActivity extends FragmentActivity {
 	    	startActivity(intent);
     	}
     }
-
 }
